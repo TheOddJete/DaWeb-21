@@ -18,7 +18,7 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 
-app.use(require('./routes/'));
+app.use(require('./routes/index'));
 
 // Middleware
 app.use(morgan('dev'));
