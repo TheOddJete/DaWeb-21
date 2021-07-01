@@ -19,6 +19,7 @@ app.set('view engine', '.hbs');
 
 
 app.use(require('./routes/index'));
+app.use(require('./routes/login'));
 
 // Middleware
 app.use(morgan('dev'));
