@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 const path = require('path');
 
 // Inicializaciones
@@ -18,13 +19,15 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 
-app.use(require('./routes/index'));
-app.use(require('./routes/login'));
-
 // Middleware
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+//Rutas
+app.use(require('./routes/index'));
+app.use(require('./routes/login'));
+app.use(require('./routes/registro'));
 
 //Public 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -35,4 +38,4 @@ app.listen(app.get('port'), () => {
 });
 
 //Base de datos
-const pool = require('./database');
+const pool = require('./persistencia/database');

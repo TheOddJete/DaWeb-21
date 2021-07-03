@@ -1,0 +1,51 @@
+const Usuario = require('../models/users');
+const { UsuarioRepositorio, ProductoRepositorio} = require('../persistencia/repository');
+
+var currentUser = undefined;
+
+class Controlador {
+
+    static async createUsuario(nombre, apellidos, usuario, contrasena, email, credito, provincia) {
+        var res = await UsuarioRepositorio.get(usuario);
+        if(res !== undefined) 
+            return false
+        
+        var nuevoUsuario = new Usuario(nombre, apellidos, usuario, contrasena, email, credito, provincia);
+        await UsuarioRepositorio.add(nuevoUsuario);
+        return true;
+    }
+
+    static async login(username, password) {
+        var aux = await UsersRepository.login(username, password);
+        if(aux === undefined) return undefined;
+        currentUser = new User(aux.name, aux.apellidos, aux.username, aux.contrasena, aux.credito, aux.mail, aux.provincia);
+        currentUser.id = aux.id;
+        return currentUser;
+    }
+
+    static getCurrentUser(){
+        return currentUser;
+    }
+
+    static async updateProfile(nombre, apellidos, email, credito, provincia){
+        currentUser.nombre = nombre;
+        currentUser.apellidos = apellidos;
+        currentUser.mail = email;
+        currentUser.credito = credito;
+        currentUser.provincia = provincia;
+
+        await UsersRepository.update(currentUser);
+        return currentUser;
+    }
+
+    static logout(){
+        currentUser = undefined;
+    }
+
+    static async getBoughtProducts(){
+        var products = ProductsRepository.getBoughtProducts(currentUser.id);
+        return products;
+    }
+}
+
+module.exports = Controlador;

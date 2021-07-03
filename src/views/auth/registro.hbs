@@ -1,0 +1,47 @@
+<div class="card-margin card col-11 col-sm-10 col-md-5 col-lg-4 mx-auto p-5">
+    <h4 class="card-title">Crear una cuenta</h4>
+    <hr>
+            <form id="formulario-registro" action="/registro" method="POST" class="needs-validation" novalidate>
+                <div class="form-group row">
+                    <input id="nombre-registro" type="text" name="nombre" class="form-control col-sm-5" placeholder="Nombre" maxlength="40"
+                        required>
+                    <input id="apellidos-registro" type="text" name="apellidos" class="form-control col-sm-7" placeholder="Apellidos"
+                        maxlength="40" required>
+                    <div class="invalid-feedback">Campos requeridos</div>
+                </div>
+                <div class="form-group row">
+                    <input id="username-registro" type="text" name="usuario" class="form-control col-sm-12" placeholder="Nombre Usuario"
+                        maxlength="40" required>
+                    <div class="invalid-feedback">Campo requerido</div>
+                </div>
+                <div class="form-group row">
+                    <input id="passwd1-registro" type="password" name="contrasena" class="form-control col-sm-6" placeholder="contrasena"
+                        maxlength="40" required>
+                    <input id="passwd2-registro" type="password" name="recontrasena" class="form-control col-sm-6" placeholder="Repita su contrasena"
+                        maxlength="40" required>
+                    <div class="invalid-feedback">Campos requeridos</div>
+                </div>
+                <div class="form-group row">
+                    <input id="email-registro" type="email" name="email" class="form-control col-sm-12" placeholder="Email" maxlength="40"
+                        required>
+                    <div class="invalid-feedback">Campo requerido</div>
+                </div>
+                <div class="form-group row">
+                    <input id="credito-registro" type="number" name="credito" class="form-control col-sm-6" placeholder="Credito" min="0"
+                        required>
+                    <select id="provincia-registro" name="provincia" class="form-control col-sm-6" placeholder="provincia" required>
+                        <option value="Madrid">Madrid</option>
+                        <option value="Barcelona">Barcelona</option>
+                        <option value="Valencia">Valencia</option>
+                        <option value="Sevilla">Sevilla</option>
+                        <option value="Zaragoza">Zaragoza</option>
+                        <option value="Murcia">Murcia</option>
+                    </select>
+                    <div class="invalid-feedback">Campos requeridos</div>
+                </div>
+                <div class="form-group">
+                    <button id="boton-registro" type="submit" class="btn btn-success btn-block">Registrarse</button>
+                </div>
+            </form>
+    <a href="/login" class=" btn mx-auto btn-reg">Ya tengo una cuenta</a>
+</div>
