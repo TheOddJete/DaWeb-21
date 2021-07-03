@@ -7,7 +7,7 @@ class Controlador {
 
     static async createUsuario(nombre, apellidos, usuario, contrasena, email, credito, provincia) {
         var res = await UsuarioRepositorio.get(usuario);
-        if(res !== undefined) 
+        if(res !== undefined)
             return false
         
         var nuevoUsuario = new Usuario(nombre, apellidos, usuario, contrasena, email, credito, provincia);
@@ -15,10 +15,10 @@ class Controlador {
         return true;
     }
 
-    static async login(username, password) {
-        var aux = await UsersRepository.login(username, password);
+    static async login(usuario, contrasena) {
+        var aux = await UsuarioRepositorio.login(usuario, contrasena);
         if(aux === undefined) return undefined;
-        currentUser = new User(aux.name, aux.apellidos, aux.username, aux.contrasena, aux.credito, aux.mail, aux.provincia);
+        currentUser = new Usuario(aux.nombre, aux.apellidos, aux.usuario, aux.contrasena, aux.email, aux.credito, aux.provincia);
         currentUser.id = aux.id;
         return currentUser;
     }

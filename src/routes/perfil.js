@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Controlador = require('../controllers/Controlador')
 
-router.get('/registro', (req, res) => {
-    res.render('auth/registro');
+router.get('/perfil', (req, res) => {
+    res.render('layouts/perfil');
 });
 
-router.post('/registro', async (req, res) => {
+//FALTA HACER EL METODO PARA ACTUALIZAR LA INFORMACION DEL USUARIO
+router.post('/post', async (req, res) => {
     console.log(req.body);
     const { nombre, apellidos, usuario, contrasena, recontrasena, email, credito, provincia } = req.body;
 

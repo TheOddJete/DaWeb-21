@@ -3,9 +3,9 @@ const pool = require("./database");
 class UsuarioRepositorio {
 
   static async get(usuario) {
-    var res = await pool.promise()
-      .query("SELECT * FROM usuarios u WHERE u.usuario = ? ", usuario);
-    return res[0][0];
+    var res = await pool.query("SELECT * FROM usuarios u WHERE u.usuario = ? ", usuario);
+    console.log("RESPUESTA RES: " ,res);
+    return res;
   }
 
   static async getById(id){
@@ -15,7 +15,7 @@ class UsuarioRepositorio {
   }
 
   static async add(user) {
-    await pool.promise().query(
+    await pool.query(
       'INSERT INTO usuarios (nombre, apellidos, usuario, contrasena, email, credito,provincia) VALUES (?,?,?,?,?,?,?)',
       [
         user.nombre,
@@ -33,7 +33,7 @@ class UsuarioRepositorio {
     try {
       await pool.promise()
         .query(
-          "UPDATE usuarios SET name = ?, apellidos = ?, passwd = ?, credito = ?, mail = ?, provincia = ? WHERE username = ?",
+          "UPDATE usuarios SET name = ?, apellidos = ?, passwd = ?, credito = ?, mail = ?, provincia = ? WHERE usuario = ?",
           [
             user.name,
             user.apellidos,
@@ -41,7 +41,7 @@ class UsuarioRepositorio {
             user.credito,
             user.mail,
             user.provincia,
-            user.username,
+            user.usuario,
           ]
         );
     } catch (error) {
@@ -49,20 +49,20 @@ class UsuarioRepositorio {
     }
   }
 
-  static async delete(username) {
+  static async delete(usuario) {
     try {
       await pool.promise()
-        .query("DELETE FROM usuarios u WHERE u.username = ?", username);
+        .query("DELETE FROM usuarios u WHERE u.usuario = ?", usuario);
     } catch (error) {
       throw error;
     }
   }
 
-  static async login(username, password) {
-    var res = await pool.promise().query(
-      "SELECT * FROM usuarios WHERE (username = ? AND passwd = ?)", [username, password]
+  static async login(usuario, contrasena) {
+    var res = await pool.query(
+      "SELECT * FROM usuarios WHERE (usuario = ? AND contrasena = ?)", [usuario, contrasena]
     );
-    return res[0][0];
+    return res[0];
   }
 }
 

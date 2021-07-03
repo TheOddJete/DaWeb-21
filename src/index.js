@@ -28,6 +28,10 @@ app.use(express.json());
 app.use(require('./routes/index'));
 app.use(require('./routes/login'));
 app.use(require('./routes/registro'));
+app.use(require('./routes/perfil'));
+app.use(require('./routes/registrarProducto'));
+app.use(require('./routes/buscador'));
+
 
 //Public 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -36,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(app.get('port'), () => {
     console.log('Servidor escuchando en el puerto: ', app.get('port'));
 });
+
 
 //Base de datos
 const pool = require('./persistencia/database');

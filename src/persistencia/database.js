@@ -1,4 +1,5 @@
-const mysql = require('mysql2'); 
+const mysql = require('mysql');
+const { promisify }= require('util');
 
 const pool = mysql.createPool({
     host: 'localhost',
@@ -18,6 +19,8 @@ pool.getConnection((error, connection) => {
         console.log('CONEXIÓN CON ÉXITO A LA BD');
     }
 })
+
+pool.query = promisify(pool.query);
 
 pool.query(
     "CREATE TABLE usuarios (id INT NOT NULL AUTO_INCREMENT, nombre VARCHAR(45) NOT NULL, apellidos VARCHAR(45) NOT NULL, usuario VARCHAR(45) NOT NULL, contrasena VARCHAR(45) NOT NULL, email VARCHAR(45) NOT NULL, credito DOUBLE NOT NULL, provincia ENUM('Madrid', 'Barcelona', 'Sevilla', 'Valencia', 'Zaragoza', 'Murcia') NOT NULL, PRIMARY KEY (id));", (err, res) => {});
