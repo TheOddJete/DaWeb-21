@@ -1,20 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const Controlador = require('../controllers/Controlador')
+const Controlador = require('../controllers/Controlador');
+const { ProductoRepositorio } = require('../persistencia/repository');
 
-router.get('/registrarProducto', (req, res) => {
-    res.render('layouts/registrarProducto');
+
+router.get('/registrarProducto', async (req, res) => {
+    const logeado = await Controlador.getCurrentUser();
+    res.render('layouts/registrarProducto',{logeado});
 });
 
-//FALTA HACER EL METODO PARA GUARDARLO EN LA BASE DE DATOS
-router.post('/post', async (req, res) => {
-    console.log(req.body);
-    const { nombre, apellidos, usuario, contrasena, recontrasena, email, credito, provincia } = req.body;
-
-    if (contrasena == recontrasena) {
-        const ok = await Controlador.createUsuario(nombre, apellidos, usuario, contrasena, email,credito, provincia);
-        res.render('index');
-    }
+router.post('/registrarProducto', async (req, res) => {
+    const { nombre, descripcion, precio, categoria, estado, fecha } = req.body;
+    const { filename } = req.file;
+    await Controlador.createProduct(nombre, precio, descripcion, filename, fecha, categoria, estado);
+    res.redirect('/');
 });
 
 module.exports = router;

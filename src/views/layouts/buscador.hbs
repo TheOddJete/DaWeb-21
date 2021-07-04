@@ -1,18 +1,18 @@
 <div class="card-margin card col-11 col-sm-10 col-md-9 col-lg-7 mx-auto p-5">
     <div class="card-title mx-auto titulo-perfil">
-        <h2 class="text-center"><i class="fas fa-search fa-sm"> Buscar Pruductos</i></h2>
+        <h2 class="text-center"><i class="fas fa-search fa-sm"> Buscar Productos</i></h2>
     </div>
     <hr>
-    <form id="formulario-buscador" action="/products/list" method="POST" class="border search-form" novalidate>
+    <form id="formulario-buscador" action="/buscar" method="POST" class="border search-form" novalidate>
         <div class="form-group row mx-auto p-2">
             <input id="texto-buscador" type="text" name="nombre" class="form-control" placeholder="texto"
                 maxlength="40">
         </div>
         <div class="form-group row mx-auto p-2">
-            <input id="precio_min-buscador" type="number" name="precio_min" min="0"
-                class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto" placeholder="precio-min">
-            <input id="precio_max-buscador" type="number" name="precio_max" min="0"
-                class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto" placeholder="precio_max">
+            <input id="precio_min-buscador" type="number" name="precioMin" min="0"
+                class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto" placeholder="Precio minimo">
+            <input id="precio_max-buscador" type="number" name="precioMax" min="0"
+                class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto" placeholder="Precio maximo">
             <select id="estado-buscador" name="estado" class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto">
                 <option value="">estado</option>
                 <option value="Nuevo">Nuevo</option>
@@ -36,4 +36,61 @@
         </div>
 
     </form>
+</div>
+
+<div class="container p-5 marco-productos contenedor-scroll">
+
+    {{#each productos}}
+
+
+    <div class=" row col-sm-11 p-3 mb-2 tarjeta-producto mx-auto ">
+        <div class="row col-sm-12">
+            <div class="col-sm-4 col-md-3 col-lg-2 mx-auto">
+                <div class="imagen-producto">
+                    <p> <img src="/images/uploads/{{this.imagen}}" alt="imagen del producto"
+                            class=" rounded-circle img-fluid">
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-sm-10 col-md-8 mr-auto titulo-precio">
+                        <h4>{{this.nombre}}</h4>
+                        <p>{{this.descripcion}}</p>
+                    </div>
+                    <div class="col-md-4 mx-auto ml-sm-auto">
+                        <h1 class="precio"> <i class="fa fa-dollar-sign"> {{this.precio}}</i></h1>
+                                                <form id="formulario-cambio-{{this.id}}" action="/products/change" method="GET">
+                            <button id="boton-cambiar" class="btn btn-success btn-block m-1 desabilitable"><i
+                                    class="fa fa-recycle"></i> cambiar</button>
+                        </form>
+                        <form id="formulario-compra-{{this.id}}" action="/products/buy" method="POST">
+                            <button id="boton-comprar" class="btn btn-success btn-block m-1 desabilitable alerta-compra"><i
+                                    class="fa fa-dollar-sign"></i> comprar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row col-sm-12 mx-auto ">
+            <div class=" col-sm-8 mr-auto ">
+                <div class="row estado-categoria">
+                    <div class=" mx-auto p-2">
+                        <p>Estado: {{this.estado}}</p>
+                    </div>
+                    <div class=" mx-auto p-2">
+                        <p> Categoria: {{this.categoria}}</p>
+                    </div>
+                    <div class="mx-auto p-2">
+                        <p> Visualizaciones: {{this.visualizaciones}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" name="id" value="{{this.id}}" form="formulario-compra-{{this.id}}">
+    <input type="hidden" name="id" value="{{this.id}}" form="formulario-cambio-{{this.id}}">
+
+    {{/each}}
 </div>

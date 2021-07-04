@@ -1,15 +1,15 @@
-class Product {
-    constructor(nombre, precio, descripcion, foto, fecha, visualizaciones, estado, categoria, usuario){
+class Producto {
+    constructor(nombre, precio, descripcion, imagen, fecha, categoria, estado, visualizaciones, usuario){
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
-        this.foto = foto;
+        this.imagen = imagen;
         this.fecha = fecha;
-        this.visualizaciones = visualizaciones;
-        this.estado = estado;
         this.categoria = categoria;
+        this.estado = estado;
+        this.visualizaciones = visualizaciones;
         this.usuario = usuario;
     }
 }
 
-module.exports = Product;
+module.exports = Producto;

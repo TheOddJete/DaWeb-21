@@ -2,19 +2,18 @@ const express = require('express');
 const router = express.Router();
 const Controlador = require('../controllers/Controlador')
 
-router.get('/buscar', (req, res) => {
-    res.render('layouts/buscador');
+router.get('/buscar', async (req, res) => {
+    const logeado = Controlador.getCurrentUser();
+    const productos = await Controlador.searchProducts();
+    res.render('layouts/buscador',{logeado,productos});
 });
 
 //FALTA HACER EL METODO PARA CONSULTAR EN LA BASE DE DATOS LOS PRODUCTOS A PARTIR DE LOS FILTROS
-router.post('/post', async (req, res) => {
-    console.log(req.body);
-    const { nombre, apellidos, usuario, contrasena, recontrasena, email, credito, provincia } = req.body;
-
-    if (contrasena == recontrasena) {
-        const ok = await Controlador.createUsuario(nombre, apellidos, usuario, contrasena, email,credito, provincia);
-        res.render('index');
-    }
+router.post('/buscar', async (req, res) => {
+    const { nombre, estado, precioMin, precioMax, categoria } = req.body;
+    const logeado = Controlador.getCurrentUser();
+    const productos = await Controlador.customSearch(nombre, estado, precioMin, precioMax, categoria);
+    res.render('layouts/buscador',{logeado,productos});
 });
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Controlador = require('../controllers/Controlador')
+const Controlador = require('../controllers/Controlador');
 
 router.get('/registro', (req, res) => {
     res.render('auth/registro');

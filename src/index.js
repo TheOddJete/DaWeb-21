@@ -2,6 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const path = require('path');
+const multer = require('multer');
+const uuid = require('uuid');
 
 // Inicializaciones
 const app = express();
@@ -16,12 +18,34 @@ app.engine('.hbs', exphbs({
     extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, 'public/images/uploads'),
+    filename: (req, file, cb) => {
+        cb(null, uuid.v4() + path.extname(file.originalname).toLowerCase());
+    }
+})
+
+//Public 
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Middleware
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(multer({
+    storage: storage,
+    dest: path.join(__dirname, 'public/imagenes/uploads'),
+    fileFilter: (req, file, cb) => {
+        const filetypes = /jpeg|jpg|png/;
+        const mimetype = filetypes.test(file.mimetype);
+        const extname = filetypes.test(path.extname(file.originalname));
+        if (mimetype && extname) {
+            return cb(null, true);
+        }
+        cb("Error: Formato de imagen no soportado");
+    }
+}).single('imagen'));
 
 //Rutas
 app.use(require('./routes/index'));
@@ -31,10 +55,10 @@ app.use(require('./routes/perfil'));
 app.use(require('./routes/registrarProducto'));
 app.use(require('./routes/buscador'));
 app.use(require('./routes/logout'));
+app.use(require('./routes/misProductos'));
 
 
-//Public 
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 //Start
 app.listen(app.get('port'), () => {
@@ -45,4 +69,4 @@ app.listen(app.get('port'), () => {
 //global.currentUser = undefined;
 
 //Base de datos
-const pool = require('./persistencia/database');
+//const pool = require('./persistencia/database');

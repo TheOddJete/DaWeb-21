@@ -3,48 +3,48 @@
         <h2 class="text-center"><i class="fas fa-user fa-sm"> Mi Perfil</i></h2>
     </div>
     <hr>
-    <form id="formulario-editar-perfil" action="/users/profile" method="POST" class="needs-validation form-perfil"
-        novalidate>
+    <form id="formulario-editar-perfil" action="/perfil" method="POST" class="needs-validation form-perfil" novalidate>
         <div class="form-group row">
             <label for="username-editar-perfil" class="col-sm-3">Nombre de Usuario:</label>
             <input id="username-editar-perfil" type="text" name="usuario" class="form-control col-sm-9"
-                value="{{{user.username}}}" maxlength="40" required>
+                value="{{{logeado.usuario}}}" maxlength="40" required readonly>
         </div>
         <div class="form-group row">
             <label for="nombre-editar-perfil" class="col-sm-3">Nombre:</label>
             <input id="nombre-editar-perfil" type="text" name="nombre" class="form-control col-sm-9"
-                value="{{{user.name}}}" maxlength="40" required>
+                value="{{{logeado.nombre}}}" maxlength="40" required>
         </div>
         <div class="form-group row">
             <label for="apellidos-editar-perfil" class="col-sm-3">Apellidos:</label>
             <input id="apellidos-editar-perfil" type="text" name="apellidos" class="form-control col-sm-9"
-                value="{{{user.apellidos}}}" maxlength="40" required>
+                value="{{{logeado.apellidos}}}" maxlength="40" required>
             <div class="invalid-feedback">Campos requeridos</div>
         </div>
         <div class="form-group row">
             <label for="contrasena-editar-perfil" class="col-sm-3">Contraseña:</label>
             <input id="contrasena-editar-perfil" type="password" name="contrasena" class="form-control col-sm-3"
-                value="{{{user.mail}}}" maxlength="40" required>
+                value="{{{logeado.contrasena}}}" maxlength="40" required>
             <label for="recontrasena-editar-perfil" class="col-sm-3">Repetir Contraseña:</label>
             <input id="recontrasena-editar-perfil" type="password" name="recontrasena" class="form-control col-sm-3"
-                value="{{{user.mail}}}" maxlength="40" required>
+                maxlength="40" required>
             <div class="invalid-feedback">Campo requerido</div>
         </div>
         <div class="form-group row">
             <label for="email-editar-perfil" class="col-sm-3">Email:</label>
             <input id="email-editar-perfil" type="email" name="email" class="form-control col-sm-9"
-                value="{{{user.mail}}}" maxlength="40" required>
+                value="{{{logeado.email}}}" maxlength="40" required>
             <div class="invalid-feedback">Campo requerido</div>
         </div>
         <div class="form-group row">
             <label for="credito-editar-perfil" class="col-sm-3">Crédito:</label>
             <input id="credito-editar-perfil" type="number" name="credito" class="form-control col-sm-3"
-                value="{{{user.credito}}}" min="0" required>
+                value="{{{logeado.credito}}}" min="0" required>
             <div class="invalid-feedback">Campos requeridos</div>
         </div>
         <div class="form-group row">
             <label for="provincia-editar-perfil" class="col-sm-3">Provincia:</label>
-            <select id="provincia-editar-perfil" name="provincia" class="form-control col-sm-3" required>
+            <select id="provincia-editar-perfil" name="provincia" class="form-control col-sm-3"
+                value="{{{logeado.provincia}}}" required>
                 <option value="Madrid">Madrid</option>
                 <option value="Barcelona">Barcelona</option>
                 <option value="Valencia">Valencia</option>

@@ -1,5 +1,6 @@
 const Usuario = require('../models/users');
 const { UsuarioRepositorio, ProductoRepositorio} = require('../persistencia/repository');
+const Producto = require('../models/products');
 
 var currentUser = undefined;
 
@@ -9,7 +10,6 @@ class Controlador {
         var res = await UsuarioRepositorio.get(usuario);
         if(res !== undefined)
             return false
-        
         var nuevoUsuario = new Usuario(nombre, apellidos, usuario, contrasena, email, credito, provincia);
         await UsuarioRepositorio.add(nuevoUsuario);
         return true;
@@ -20,23 +20,22 @@ class Controlador {
         if(aux === undefined) return undefined;
         currentUser = new Usuario(aux.nombre, aux.apellidos, aux.usuario, aux.contrasena, aux.email, aux.credito, aux.provincia);
         currentUser.id = aux.id;
-        console.log(currentUser);
         return currentUser;
     }
 
-    //Puede que no haga falta si se usa como variable glboal.
     static getCurrentUser(){
         return currentUser;
     }
 
-    static async updateProfile(nombre, apellidos, email, credito, provincia){
+    static async updateUsuario(nombre, apellidos, contrasena, email, credito, provincia){
         currentUser.nombre = nombre;
         currentUser.apellidos = apellidos;
-        currentUser.mail = email;
+        currentUser.contrasena = contrasena;
+        currentUser.email = email;
         currentUser.credito = credito;
         currentUser.provincia = provincia;
 
-        await UsersRepository.update(currentUser);
+        await UsuarioRepositorio.update(currentUser);
         return currentUser;
     }
 
@@ -44,9 +43,80 @@ class Controlador {
         currentUser = undefined;
     }
 
-    static async getBoughtProducts(){
-        var products = ProductsRepository.getBoughtProducts(currentUser.id);
-        return products;
+    //Productos
+    static async createProduct(nombre, precio, descripcion, imagen, fecha, categoria, estado) {
+        var currentId = Controlador.getCurrentUser().id;
+        var visualizaciones = 0;
+        var producto = new Producto(nombre, precio, descripcion, imagen, fecha, categoria, estado, visualizaciones, currentId);
+        await ProductoRepositorio.add(producto);
+    }
+
+    static async searchCurrentUserProducts() {
+        var currentId = Controlador.getCurrentUser().id;
+        var productos = await ProductoRepositorio.getByusuario(currentId);
+        return productos;
+    }
+
+    static async searchProducts() {
+        var currentId = Controlador.getCurrentUser().id;
+        var productos = await ProductoRepositorio.getAllNoMine(currentId);
+        productos.forEach(p => {
+            p.visualizaciones += 1;
+            ProductoRepositorio.update(p);
+        });
+        return productos;
+    }
+
+    static async customSearch(nombre, estado, precioMin, precioMax, categoria) {
+
+        var currentId = Controlador.getCurrentUser().id;
+        if (nombre === '' && estado === '' && precioMin === '' && precioMax === '' && categoria === '') {
+            
+            const productos = await Controlador.searchProducts();
+            console.log("PRODUCTOS SIN FILTRO ", productos);
+            productos.forEach(p => {
+                console.log("PRODUCTO", p);
+                p.visualizaciones += 1;
+                ProductoRepositorio.update(p);
+            });
+
+            return productos;
+        }
+
+
+        var queryString = "SELECT * FROM productos WHERE ( usuario != " + currentId;
+        queryString += " AND"
+
+        if (nombre !== '') {
+            queryString += " nombre LIKE '%" + nombre + "%' AND";
+        }
+
+        if (estado !== '') {
+            queryString += " estado = '" + estado + "' AND";
+        }
+
+        if (precioMin !== '') {
+            queryString += " precio > " + precioMin + " AND";
+        }
+
+        if (precioMax !== '') {
+            queryString += " precio < " + precioMax + " AND";
+        }
+
+        if (categoria !== '') {
+            queryString += " categoria = '" + categoria + "' AND";
+        }
+
+        queryString += " comprador is NULL AND cambiado_por is NULL)";
+
+        const productos = await ProductoRepositorio.customQuery(queryString);
+        console.log("CONTROLADOR ", productos);
+        productos.forEach(p => {
+            p.visualizaciones += 1;
+            ProductoRepositorio.update(p);
+        });
+        return productos;
+
     }
 }
 

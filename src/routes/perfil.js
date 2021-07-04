@@ -2,18 +2,19 @@ const express = require('express');
 const router = express.Router();
 const Controlador = require('../controllers/Controlador')
 
-router.get('/perfil', (req, res) => {
-    res.render('layouts/perfil');
+router.get('/perfil', async (req, res) => {
+    const logeado = await Controlador.getCurrentUser();
+    res.render('layouts/perfil',{logeado});
 });
 
 //FALTA HACER EL METODO PARA ACTUALIZAR LA INFORMACION DEL USUARIO
-router.post('/post', async (req, res) => {
+router.post('/perfil', async (req, res) => {
     console.log(req.body);
     const { nombre, apellidos, usuario, contrasena, recontrasena, email, credito, provincia } = req.body;
 
     if (contrasena == recontrasena) {
-        const ok = await Controlador.createUsuario(nombre, apellidos, usuario, contrasena, email,credito, provincia);
-        res.render('index');
+        const ok = await Controlador.updateUsuario(nombre, apellidos, contrasena, email, credito, provincia);
+        res.redirect('/');
     }
 });
 

@@ -4,46 +4,44 @@ class UsuarioRepositorio {
 
   static async get(usuario) {
     var res = await pool.query("SELECT * FROM usuarios u WHERE u.usuario = ? ", usuario);
-    console.log("RESPUESTA RES: " ,res);
-    return res;
+    return res[0];
   }
 
-  static async getById(id){
+  static async getById(id) {
     var res = await pool.promise()
       .query("SELECT * FROM usuarios u WHERE u.id = ? ", [id]);
-      return res[0][0];
+    return res[0][0];
   }
 
-  static async add(user) {
+  static async add(usuario) {
     await pool.query(
       'INSERT INTO usuarios (nombre, apellidos, usuario, contrasena, email, credito,provincia) VALUES (?,?,?,?,?,?,?)',
       [
-        user.nombre,
-        user.apellidos,
-        user.usuario,
-        user.contrasena, 
-        user.email,
-        user.credito,
-        user.provincia,
+        usuario.nombre,
+        usuario.apellidos,
+        usuario.usuario,
+        usuario.contrasena,
+        usuario.email,
+        usuario.credito,
+        usuario.provincia,
       ]
     );
   }
 
-  static async update(user) {
+  static async update(usuario) {
     try {
-      await pool.promise()
-        .query(
-          "UPDATE usuarios SET name = ?, apellidos = ?, passwd = ?, credito = ?, mail = ?, provincia = ? WHERE usuario = ?",
-          [
-            user.name,
-            user.apellidos,
-            user.passwd,
-            user.credito,
-            user.mail,
-            user.provincia,
-            user.usuario,
-          ]
-        );
+      await pool.query(
+        "UPDATE usuarios SET nombre = ?, apellidos = ?, contrasena = ?, credito = ?, email = ?, provincia = ? WHERE usuario = ?",
+        [
+          usuario.nombre,
+          usuario.apellidos,
+          usuario.contrasena,
+          usuario.credito,
+          usuario.email,
+          usuario.provincia,
+          usuario.usuario,
+        ]
+      );
     } catch (error) {
       throw error;
     }
@@ -79,46 +77,40 @@ class ProductoRepositorio {
     }
   }
 
-  static async add(product) {
-    try {
-      await pool
-        .promise()
-        .query(
-          `INSERT INTO products (nombre, precio, descripcion, foto, fecha, visualizaciones, estado, categoria, usuario) VALUES (?,?,?,?,?,?,?,?,?)`,
-          [
-            product.nombre,
-            product.precio,
-            product.descripcion,
-            product.foto,
-            product.fecha,
-            product.visualizaciones,
-            product.estado,
-            product.categoria,
-            product.usuario,
-          ]
-        );
-    } catch (error) {
-      throw error;
-    }
+  static async add(producto) {
+    await pool
+      .query(
+        `INSERT INTO productos (nombre, precio, descripcion, imagen, fecha, categoria, estado, visualizaciones, usuario) VALUES (?,?,?,?,?,?,?,?,?)`,
+        [
+          producto.nombre,
+          producto.precio,
+          producto.descripcion,
+          producto.imagen,
+          producto.fecha,
+          producto.categoria,
+          producto.estado,
+          producto.visualizaciones,
+          producto.usuario,
+        ]
+      );
   }
 
-  static async update(product) {
+  static async update(producto) {
     try {
       await pool
-        .promise()
         .query(
-          "UPDATE products SET precio = ?, descripcion = ?, foto = ?, fecha = ?, visualizaciones = ?, estado = ?, categoria = ?, comprador = ?, cambiado_por = ? WHERE nombre = ?",
+          "UPDATE productos SET precio = ?, descripcion = ?, imagen = ?, fecha = ?, categoria = ?, estado = ?, visualizaciones = ?, comprador = ?, cambiado_por = ? WHERE nombre = ?",
           [
-            product.precio,
-            product.descripcion,
-            product.foto,
-            product.fecha,
-            product.visualizaciones,
-            product.estado,
-            product.categoria,
-            product.comprador,
-            product.cambiado_por,
-            product.nombre
+            producto.precio,
+            producto.descripcion,
+            producto.imagen,
+            producto.fecha,
+            producto.categoria,
+            producto.estado,
+            producto.visualizaciones,
+            producto.comprador,
+            producto.cambiado_por,
+            producto.nombre
           ]
         );
     } catch (error) {
@@ -136,21 +128,21 @@ class ProductoRepositorio {
     }
   }
 
-  static async getAllNoMine(userId){
+  static async getAllNoMine(usuarioId) {
     try {
-      const products = await pool.promise()
-        .query("SELECT * FROM products WHERE usuario != ? AND comprador is NULL AND cambiado_por is NULL", [userId]);
-      return products[0];
+      const productos = await pool
+      .query("SELECT * FROM productos WHERE usuario != ? AND comprador is NULL AND cambiado_por is NULL", [usuarioId]);
+      return productos;
     } catch (error) {
       throw error;
     }
   }
 
-  static async getByUser(userId){
+  static async getByusuario(usuarioId) {
     try {
-      const products = await pool.promise().
-        query("SELECT * FROM products WHERE usuario = ? AND comprador is NULL AND cambiado_por is NULL", [userId]);
-      return products[0];
+      const productos = await pool.
+        query("SELECT * FROM productos WHERE usuario = ? AND comprador is NULL AND cambiado_por is NULL", [usuarioId]);
+      return productos;
     } catch (error) {
       throw error;
     }
@@ -158,14 +150,14 @@ class ProductoRepositorio {
 
   static async customQuery(queryString) {
     try {
-      const products = await pool.promise().query(queryString);
-      return products[0];
+      const products = await pool.query(queryString);
+      return products;
     } catch (error) {
       throw error;
     }
   }
 
-  static async getBoughtProducts(compradorId){
+  static async getBoughtProducts(compradorId) {
     try {
       const products = await pool.promise()
         .query("SELECT * FROM products WHERE comprador = ? OR cambiado_por = ?", [compradorId, compradorId]);
