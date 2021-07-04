@@ -11,11 +11,11 @@ router.post('/login', async (req, res) => {
     const ok = await Controlador.login(usuario, contrasena);
     if (ok !== undefined) {
         //res.json({ type: 'ok', alerta: { tipo: 'alert-danger', msg: 'Credenciales inválidas' } });
-        res.send("Correcto");
+        res.redirect('/');
     }
     else {
         //res.json({ type: 'fail', alerta: { tipo: 'alert-danger', msg: 'Credenciales inválidas' } });
-        res.send("Falla");
+        res.render('auth/login');
     }
 });
 

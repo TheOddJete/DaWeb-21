@@ -20,9 +20,11 @@ class Controlador {
         if(aux === undefined) return undefined;
         currentUser = new Usuario(aux.nombre, aux.apellidos, aux.usuario, aux.contrasena, aux.email, aux.credito, aux.provincia);
         currentUser.id = aux.id;
+        console.log(currentUser);
         return currentUser;
     }
 
+    //Puede que no haga falta si se usa como variable glboal.
     static getCurrentUser(){
         return currentUser;
     }

@@ -1,7 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
-const bodyParser = require('body-parser');
 const path = require('path');
 
 // Inicializaciones
@@ -31,6 +30,7 @@ app.use(require('./routes/registro'));
 app.use(require('./routes/perfil'));
 app.use(require('./routes/registrarProducto'));
 app.use(require('./routes/buscador'));
+app.use(require('./routes/logout'));
 
 
 //Public 
@@ -41,6 +41,8 @@ app.listen(app.get('port'), () => {
     console.log('Servidor escuchando en el puerto: ', app.get('port'));
 });
 
+//Globals
+//global.currentUser = undefined;
 
 //Base de datos
 const pool = require('./persistencia/database');
