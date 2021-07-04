@@ -1,70 +1,57 @@
 <div class="card-margin card col-11 col-sm-10 col-md-9 col-lg-7 mx-auto p-5">
     <div class="card-title mx-auto titulo-perfil">
-        <h4><i class="fas fa-box-open user-icon"></i></h4>
-        <h4>Registrar Producto</h4>
+        <h2><i class="fas fa-box-open fa-lg"></i> Registro de Producto </h2>
+
     </div>
     <hr>
     <form id="formulario-registrar-producto" action="/products/add" method="POST" enctype="multipart/form-data"
         class="needs-validation form-perfil" novalidate>
         <div class="form-group row">
-            <label for="nombre-registrar-producto" class="col-sm-4">Nombre del Producto:</label>
-            <input id="nombre-registrar-producto" type="text" name="nombre" class="form-control col-sm-8" maxlength="40"
+            <label for="nombre-registrar-producto" class="col-sm-2">Nombre del Producto:</label>
+            <input id="nombre-registrar-producto" type="text" name="nombre" class="form-control col-sm-10" maxlength="40"
                 required>
             <div class="invalid-feedback required-msg">Campo requerido</div>
         </div>
         <div class="form-group row">
-            <label for="descripcion-registrar-producto" class="col-sm-4">Descripcion:</label>
-            <textarea id="descripcion-registrar-producto" name="descripcion" rows="3" required
-                class="form-control col-sm-11 ml-auto"></textarea>
+            <label for="precio-registrar-producto" class="col-sm-2">Precio:</label>
+            <input id="precio-registrar-producto" type="number" name="precio" class="form-control col-sm-4" min="0"
+                required>
+            <label for="categoria-registrar-producto" class="col-sm-2">Categoria:</label>
+            <select id="categoria-registrar-producto" name="categoria" class="form-control col-sm-4" required>
+                <option value="Ropa">Ropa</option>
+                <option value="Calzado">Calzado</option>
+                <option value="Deportes">Deportes</option>
+                <option value="Juegos">Juegos</option>
+                <option value="Hogar">Hogar</option>
+            </select>
             <div class="invalid-feedback required-msg">Campo requerido</div>
         </div>
-        <div class="row">
-            <div class="container col-md-5">
-                <div class="form-group row">
-                    <label for="precio-registrar-producto" class="col-sm-4 col-md-6 ">Precio:</label>
-                    <input id="precio-registrar-producto" type="number" name="precio"
-                        class="form-control col-sm-8 col-md-6" min="0" required>
-                    <div class="invalid-feedback required-msg">Campo requerido</div>
-                </div>
-                <div class="form-group row">
-                    <label for="categoria-registrar-producto" class="col-sm-4 col-md-6">Categoria:</label>
-                    <select id="categoria-registrar-producto" name="categoria" class="form-control col-sm-8 col-md-6"
-                        required>
-                        <option value="Ropa">Ropa</option>
-                        <option value="Calzado">Calzado</option>
-                        <option value="Deportes">Deportes</option>
-                        <option value="Juegos">Juegos</option>
-                        <option value="Hogar">Hogar</option>
-                    </select>
-                    <div class="invalid-feedback required-msg">Campo requerido</div>
-                </div>
-                <div class="form-group row">
-                    <label for="estado-registrar-producto" class="col-sm-4 col-md-6">Estado:</label>
-                    <select id="estado-registrar-producto" name="estado" class="form-control col-sm-8 col-md-6"
-                        required>
-                        <option value="Nuevo">Nuevo</option>
-                        <option value="SemiNuevo">SemiNuevo</option>
-                        <option value="Bueno">Bueno</option>
-                        <option value="Malo">Malo</option>
-                        <option value="Pocho">Pocho</option>
-                    </select>
-                    <div class="invalid-feedback required-msg">Campo requerido</div>
-                </div>
-            </div>
-            <div class="container offset-md-1 col-md-6">
-                <div class="form-group row">
-                    <label for="fecha-registrar-producto" class="">Fecha:</label>
-                    <input id="fecha-registrar-producto" type="date" name="fecha" class="form-control" required>
-                </div>
-                <div class="form-group row">
-                    <label for="foto-registrar-producto" class="">Foto:</label>
-                    <input id="foto-registrar-producto" type="file" name="foto" class="form-control-file" required>
-                    <div class="invalid-feedback required-msg">Campo requerido</div>
-                </div>
-            </div>
+        <div class="form-group row">
+            <label for="estado-registrar-producto" class="col-sm-2">Estado:</label>
+            <select id="estado-registrar-producto" name="estado" class="form-control col-sm-4" required>
+                <option value="Nuevo">Nuevo</option>
+                <option value="SemiNuevo">SemiNuevo</option>
+                <option value="Bueno">Bueno</option>
+                <option value="Malo">Malo</option>
+                <option value="Pocho">Pocho</option>
+            </select>
+            <label for="fecha-registrar-producto" class="col-sm-2">Fecha:</label>
+            <input id="fecha-registrar-producto" type="date" name="fecha" class="form-control col-sm-4" required>
+            <div class="invalid-feedback required-msg">Campo requerido</div>
         </div>
-        <div class="form-group">
-            <button id="boton-registrar-producto" type="submit" class="btn btn-success btn-block">Registrar
+        <div class="form-group row">
+            <label for="descripcion-registrar-producto" class="col-sm-3">Descripción:</label>
+            <textarea id="descripcion-registrar-producto" name="descripcion" rows="2" required
+                class="form-control col-md-10 ml-auto" style="width: 30px;"></textarea>
+            <div class="invalid-feedback required-msg">Campo requerido</div>
+        </div>
+        <div class="form-group row">
+            <label for="foto-registrar-producto" class="col-sm-2">Foto:</label>
+            <input id="foto-registrar-producto" type="file" name="foto" class="form-control-file col-sm-8" required>
+            <div class="invalid-feedback required-msg">Campo requerido</div>
+        </div>
+        <div class="form-group text-center button-margin">
+            <button id="boton-registrar-producto" type="submit" class="btn btn-success">Registrar
                 Producto</button>
         </div>
     </form>
