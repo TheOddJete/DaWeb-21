@@ -9,11 +9,11 @@ router.get('/buscar', async (req, res) => {
 });
 
 //FALTA HACER EL METODO PARA CONSULTAR EN LA BASE DE DATOS LOS PRODUCTOS A PARTIR DE LOS FILTROS
-router.post('/buscar', async (req, res) => {
+router.post('/filtrar', async (req, res) => {
     const { nombre, estado, precioMin, precioMax, categoria } = req.body;
     const logeado = Controlador.getCurrentUser();
     const productos = await Controlador.customSearch(nombre, estado, precioMin, precioMax, categoria);
-    res.render('layouts/buscador',{logeado,productos});
+    res.render('layouts/buscador', {logeado,productos});
 });
 
 module.exports = router;

@@ -1,6 +1,6 @@
-const Usuario = require('../models/users');
-const { UsuarioRepositorio, ProductoRepositorio} = require('../persistencia/repository');
-const Producto = require('../models/products');
+const Usuario = require('../models/Usuario');
+const { UsuarioRepositorio, ProductoRepositorio } = require('../persistencia/repository');
+const Producto = require('../models/Producto');
 
 var currentUser = undefined;
 
@@ -8,7 +8,7 @@ class Controlador {
 
     static async createUsuario(nombre, apellidos, usuario, contrasena, email, credito, provincia) {
         var res = await UsuarioRepositorio.get(usuario);
-        if(res !== undefined)
+        if (res !== undefined)
             return false
         var nuevoUsuario = new Usuario(nombre, apellidos, usuario, contrasena, email, credito, provincia);
         await UsuarioRepositorio.add(nuevoUsuario);
@@ -17,17 +17,17 @@ class Controlador {
 
     static async login(usuario, contrasena) {
         var aux = await UsuarioRepositorio.login(usuario, contrasena);
-        if(aux === undefined) return undefined;
+        if (aux === undefined) return undefined;
         currentUser = new Usuario(aux.nombre, aux.apellidos, aux.usuario, aux.contrasena, aux.email, aux.credito, aux.provincia);
         currentUser.id = aux.id;
         return currentUser;
     }
 
-    static getCurrentUser(){
+    static getCurrentUser() {
         return currentUser;
     }
 
-    static async updateUsuario(nombre, apellidos, contrasena, email, credito, provincia){
+    static async updateUsuario(nombre, apellidos, contrasena, email, credito, provincia) {
         currentUser.nombre = nombre;
         currentUser.apellidos = apellidos;
         currentUser.contrasena = contrasena;
@@ -39,7 +39,7 @@ class Controlador {
         return currentUser;
     }
 
-    static logout(){
+    static logout() {
         currentUser = undefined;
     }
 
@@ -71,15 +71,7 @@ class Controlador {
 
         var currentId = Controlador.getCurrentUser().id;
         if (nombre === '' && estado === '' && precioMin === '' && precioMax === '' && categoria === '') {
-            
             const productos = await Controlador.searchProducts();
-            console.log("PRODUCTOS SIN FILTRO ", productos);
-            productos.forEach(p => {
-                console.log("PRODUCTO", p);
-                p.visualizaciones += 1;
-                ProductoRepositorio.update(p);
-            });
-
             return productos;
         }
 
@@ -109,6 +101,7 @@ class Controlador {
 
         queryString += " comprador is NULL AND cambiado_por is NULL)";
 
+
         const productos = await ProductoRepositorio.customQuery(queryString);
         console.log("CONTROLADOR ", productos);
         productos.forEach(p => {
@@ -117,6 +110,29 @@ class Controlador {
         });
         return productos;
 
+    }
+
+    static async comprarProducto(idProducto, currentUser) {
+
+        console.log(idProducto);
+
+        var producto = await ProductoRepositorio.get(idProducto);
+
+        var vendedor = await UsuarioRepositorio.getById(producto.usuario);
+        //var ok = currentUser.comprarProducto(producto, vendedor);
+
+        if (currentUser.credito < producto.precio)
+            return false;
+
+        currentUser.credito -= producto.precio;
+        vendedor.credito += parseInt(producto.precio);
+        producto.comprador = currentUser.id;
+
+        await UsuarioRepositorio.update(currentUser);
+        await UsuarioRepositorio.update(vendedor);
+        await ProductoRepositorio.update(producto);
+
+        return true;
     }
 }
 

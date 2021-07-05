@@ -8,9 +8,10 @@ class UsuarioRepositorio {
   }
 
   static async getById(id) {
-    var res = await pool.promise()
-      .query("SELECT * FROM usuarios u WHERE u.id = ? ", [id]);
-    return res[0][0];
+    var res = await pool.query("SELECT * FROM usuarios u WHERE u.id = ? ", [id]);
+    console.log("ELEMENTO SOLO ", res[0]);
+    console.log("ARRAY ", res);
+    return res[0];
   }
 
   static async add(usuario) {
@@ -69,9 +70,10 @@ class ProductoRepositorio {
   static async get(id) {
     try {
       let p = await pool
-        .promise()
-        .query("SELECT * FROM products WHERE id = ? ", [id]);
-      return p[0][0];
+        .query("SELECT * FROM productos WHERE id = ? ", [id])
+        console.log("ELEMENTO SOLO ", p[0]);
+        console.log("ARRAY ", p);
+      return p[0];
     } catch (error) {
       throw error;
     }

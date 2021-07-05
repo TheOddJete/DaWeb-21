@@ -56,7 +56,7 @@ app.use(require('./routes/registrarProducto'));
 app.use(require('./routes/buscador'));
 app.use(require('./routes/logout'));
 app.use(require('./routes/misProductos'));
-
+app.use(require('./routes/comprar'));
 
 
 

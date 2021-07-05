@@ -3,7 +3,7 @@
         <h2 class="text-center"><i class="fas fa-search fa-sm"> Buscar Productos</i></h2>
     </div>
     <hr>
-    <form id="formulario-buscador" action="/buscar" method="POST" class="border search-form" novalidate>
+    <form id="formulario-buscador" action="/filtrar" method="POST" class="border search-form" novalidate>
         <div class="form-group row mx-auto p-2">
             <input id="texto-buscador" type="text" name="nombre" class="form-control" placeholder="texto"
                 maxlength="40">
@@ -60,12 +60,13 @@
                     </div>
                     <div class="col-md-4 mx-auto ml-sm-auto">
                         <h1 class="precio"> <i class="fa fa-dollar-sign"> {{this.precio}}</i></h1>
-                                                <form id="formulario-cambio-{{this.id}}" action="/products/change" method="GET">
+                        <form id="formulario-cambio-{{this.id}}" action="/products/change" method="GET">
                             <button id="boton-cambiar" class="btn btn-success btn-block m-1 desabilitable"><i
                                     class="fa fa-recycle"></i> cambiar</button>
                         </form>
-                        <form id="formulario-compra-{{this.id}}" action="/products/buy" method="POST">
-                            <button id="boton-comprar" class="btn btn-success btn-block m-1 desabilitable alerta-compra"><i
+                        <form id="formulario-compra-{{this.id}}" action="/comprar" method="POST">
+                            <button id="boton-comprar"
+                                class="btn btn-success btn-block m-1 desabilitable alerta-compra"><i
                                     class="fa fa-dollar-sign"></i> comprar</button>
                         </form>
                     </div>
