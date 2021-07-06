@@ -11,6 +11,7 @@ router.post('/comprar', async (req, res) => {
         res.redirect('/buscar');
 
     }
+    //CAMBIAR
     else
         res.send("FAIL");
 });

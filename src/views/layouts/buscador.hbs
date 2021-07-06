@@ -60,12 +60,12 @@
                     </div>
                     <div class="col-md-4 mx-auto ml-sm-auto">
                         <h1 class="precio"> <i class="fa fa-dollar-sign"> {{this.precio}}</i></h1>
-                        <form id="formulario-cambio-{{this.id}}" action="/products/change" method="GET">
+                        <form id="formulario-cambio-{{this.id}}" action="/cambiar" method="GET">
                             <button id="boton-cambiar" class="btn btn-success btn-block m-1 desabilitable"><i
                                     class="fa fa-recycle"></i> cambiar</button>
                         </form>
                         <form id="formulario-compra-{{this.id}}" action="/comprar" method="POST">
-                            <button id="boton-comprar"
+                            <button id="boton-comprar" onclick="alerta()"
                                 class="btn btn-success btn-block m-1 desabilitable alerta-compra"><i
                                     class="fa fa-dollar-sign"></i> comprar</button>
                         </form>

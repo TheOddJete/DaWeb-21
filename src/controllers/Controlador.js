@@ -51,6 +51,11 @@ class Controlador {
         await ProductoRepositorio.add(producto);
     }
 
+    static async getProductById(id) {
+        const producto = await ProductoRepositorio.get(id);
+        return producto;
+    }
+
     static async searchCurrentUserProducts() {
         var currentId = Controlador.getCurrentUser().id;
         var productos = await ProductoRepositorio.getByusuario(currentId);
@@ -133,6 +138,40 @@ class Controlador {
         await ProductoRepositorio.update(producto);
 
         return true;
+    }
+
+    static async changeProducts(productoId, miProductoId) {
+
+        var total_price = 0;
+        const miProducto = await ProductoRepositorio.get(miProductoId);
+        const producto = await ProductoRepositorio.get(productoId);
+
+        //Tratar fallo
+        if (miProducto.precio < producto.precio) {
+            return false;
+            return {
+                alerta: {
+                    tipo: 'alert-danger',
+                    msg: 'El valor total de los productos seleccionados no puede superar el valor del producto a cambiar.'
+                }
+            }
+        }
+        else {
+            producto.cambiado_por = Controlador.getCurrentUser().id;
+            await ProductoRepositorio.update(producto);
+
+            miProducto.cambiado_por = producto.usuario;
+            await ProductoRepositorio.update(miProducto);
+
+            return true;
+            return {
+                alerta: {
+                    tipo: 'alert-success',
+                    msg: 'Producto/s cambiado/s correctamente.'
+                }
+            }
+        }
+
     }
 }
 

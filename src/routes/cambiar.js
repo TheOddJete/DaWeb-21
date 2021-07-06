@@ -9,19 +9,15 @@ router.get('/cambiar', async (req, res) => {
     const producto = await Controlador.getProductById(id);
     const productos = await Controlador.searchCurrentUserProducts();
 
-    res.render('products/change', { producto, productos });
+    res.render('layouts/cambiarProducto', { producto, productos });
 });
 router.post('/cambiar', async (req, res) => {
-    const { id } = req.body;
-    console.log("BODY ", id);
-    const logeado = Controlador.getCurrentUser();
-    var productoComprado = await Controlador.comprarProducto(id, logeado);
-    if(productoComprado){
+    const { productId, product_change } = req.body;
+    const resultado = await Controlador.changeProducts(productId, product_change);
+    if(resultado){
         res.redirect('/buscar');
-
     }
-    else
-        res.send("FAIL");
+    else res.send('Error');
 });
 
 module.exports = router;
