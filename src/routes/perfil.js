@@ -7,14 +7,23 @@ router.get('/perfil', async (req, res) => {
     res.render('layouts/perfil',{logeado});
 });
 
-//FALTA HACER EL METODO PARA ACTUALIZAR LA INFORMACION DEL USUARIO
 router.post('/perfil', async (req, res) => {
-    console.log(req.body);
     const { nombre, apellidos, usuario, contrasena, recontrasena, email, credito, provincia } = req.body;
 
     if (contrasena == recontrasena) {
         const ok = await Controlador.updateUsuario(nombre, apellidos, contrasena, email, credito, provincia);
-        res.redirect('/');
+        if(ok){
+            req.flash('correcto', 'Usuario actualizado correctamente');
+            res.redirect('/');
+        }
+        else {
+            req.flash('fallo', 'No se ha podido actualizar el usuario');
+            res.redirect('/perfil');
+        }
+    }
+    else{
+        req.flash('fallo', 'Las contraseñas no coinciden');
+        res.redirect('/perfil');
     }
 });
 

@@ -4,6 +4,17 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const multer = require('multer');
 const uuid = require('uuid');
+const session = require('express-session');
+const flash = require('connect-flash');
+const mysqlstore = require('express-mysql-session');
+
+const database = {
+        host: 'localhost',
+        port: '3306',
+        user: 'root',
+        password: 'root',
+        database: 'daweb'
+}
 
 // Inicializaciones
 const app = express();
@@ -47,6 +58,20 @@ app.use(multer({
     }
 }).single('imagen'));
 
+app.use(session({
+    secret: 'prueba',
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(flash());
+
+//Globals
+app.use((req, res, next) => {
+    res.locals.correcto = req.flash('correcto');
+    res.locals.fallo = req.flash('fallo');
+    next();
+  });
+
 //Rutas
 app.use(require('./routes/index'));
 app.use(require('./routes/login'));
@@ -59,15 +84,8 @@ app.use(require('./routes/misProductos'));
 app.use(require('./routes/comprar'));
 app.use(require('./routes/cambiar'));
 
-
-
 //Start
 app.listen(app.get('port'), () => {
     console.log('Servidor escuchando en el puerto: ', app.get('port'));
 });
 
-//Globals
-//global.currentUser = undefined;
-
-//Base de datos
-//const pool = require('./persistencia/database');

@@ -10,12 +10,12 @@ router.post('/login', async (req, res) => {
     const { usuario, contrasena } = req.body;
     const ok = await Controlador.login(usuario, contrasena);
     if (ok !== undefined) {
-        //res.json({ type: 'ok', alerta: { tipo: 'alert-danger', msg: 'Credenciales inválidas' } });
+        req.flash('correcto', 'Inicio de sesión correcto');
         res.redirect('/');
     }
     else {
-        //res.json({ type: 'fail', alerta: { tipo: 'alert-danger', msg: 'Credenciales inválidas' } });
-        res.render('auth/login');
+        req.flash('fallo', 'Datos introducidos incorrectos');
+        res.redirect('/login');
     }
 });
 

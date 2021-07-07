@@ -1,21 +1,21 @@
 <div class="card-margin card col-11 col-sm-10 col-md-5 col-lg-4 mx-auto p-5">
     <h4 class="card-title">Iniciar Sesion</h4>
     <hr>
-    <form id="formulario-login" action="/login" method="POST" class="needs-validation" novalidate>
+    <form action="/login" method="POST" class="needs-validation" novalidate>
         <div class="form-group row">
-            <label for="username-login">Nombre de Usuario:</label>
-            <input id="username-login" type="text" name="usuario" class="form-control"
+            <label for="usuario">Nombre de Usuario:</label>
+            <input id="usuario" type="text" name="usuario" class="form-control"
                 placeholder="Escriba su nombre de Usuario" required>
             <div class="invalid-feedback">Campo requerido</div>
         </div>
         <div class="form-group row">
-            <label for="passwd-login">Contraseña:</label>
-            <input id="passwd-login" type="password" name="contrasena" class="form-control "
-                placeholder="Escriba su contrasena" required>
+            <label for="contrasena">Contraseña:</label>
+            <input id="contrasena" type="password" name="contrasena" class="form-control "
+                placeholder="Escriba su contraseña" required>
             <div class="invalid-feedback">Campo requerido</div>
         </div>
         <div class="form-group pt-3">
-            <button type="submit" id="boton-login" class="btn btn-success btn-block">Iniciar Sesion</button>
+            <button type="submit" class="btn btn-success btn-block">Iniciar Sesion</button>
         </div>
     </form>
     <a href="/registro" class=" btn mx-auto btn-reg">Registrarse</a>

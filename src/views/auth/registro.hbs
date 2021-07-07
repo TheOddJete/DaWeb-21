@@ -1,7 +1,7 @@
 <div class="card-margin card col-11 col-sm-10 col-md-11 col-lg-7 mx-auto p-5">
     <h2 class="text-center"><i class="fa fa-address-card fa-sm"> Crear una cuenta</i></h2>
     <hr>
-    <form id="formulario-registro" action="/registro" method="POST" class="needs-validation" novalidate>
+    <form action="/registro" method="POST" class="needs-validation" novalidate>
         <div class="form-group row">
             <label for="nombre" class="col-sm-3">Nombre:</label>
             <input id="nombre" type="text" name="nombre" class="form-control col-sm-9" maxlength="40" required>
@@ -36,19 +36,19 @@
             <label for="credito" class="col-sm-3">Créditos:</label>
             <input id="credito" type="number" name="credito" class="form-control col-sm-3" min="0" required>
              <label for="provncia" class="col-sm-3">Provincia:</label>
-            <select id="provincia" name="provincia" class="form-control col-sm-3" placeholder="provincia"
+            <select id="provincia" name="provincia" class="form-control col-sm-3" placeholder="Provincia"
                 required>
-                <option value="Madrid">Madrid</option>
+                <option value="Alicante">Alicante</option>
                 <option value="Barcelona">Barcelona</option>
                 <option value="Valencia">Valencia</option>
                 <option value="Sevilla">Sevilla</option>
-                <option value="Zaragoza">Zaragoza</option>
+                <option value="Madrid">Madrid</option>
                 <option value="Murcia">Murcia</option>
             </select>
             <div class="invalid-feedback">Campos requeridos</div>
         </div>
         <div class="form-group text-center button-margin">
-            <button id="boton-registro" type="submit" class="btn btn-success button-size">Registrarse</button>
+            <button type="submit" class="btn btn-success button-size">Registrarse</button>
         </div>
     </form>
     <a href="/login" class=" btn mx-auto btn-reg">Ya tengo una cuenta</a>

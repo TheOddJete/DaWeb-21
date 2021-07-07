@@ -9,7 +9,7 @@
             <label for="nombre-registrar-producto" class="col-sm-2">Nombre del Producto:</label>
             <input id="nombre-registrar-producto" type="text" name="nombre" class="form-control col-sm-10"
                 maxlength="40" required>
-            <div class="invalid-feedback required-msg">Campo requerido</div>
+            <div class="invalid-feedback required-msg">Campo obligatorio</div>
         </div>
         <div class="form-group row">
             <label for="precio-registrar-producto" class="col-sm-2">Precio:</label>
@@ -18,36 +18,36 @@
             <label for="categoria-registrar-producto" class="col-sm-2">Categoria:</label>
             <select id="categoria-registrar-producto" name="categoria" class="form-control col-sm-4" required>
                 <option value="Ropa">Ropa</option>
-                <option value="Calzado">Calzado</option>
+                <option value="Tecnologia">Tecnología</option>
                 <option value="Deportes">Deportes</option>
                 <option value="Juegos">Juegos</option>
-                <option value="Hogar">Hogar</option>
+                <option value="Otros">Otros</option>
             </select>
-            <div class="invalid-feedback required-msg">Campo requerido</div>
+            <div class="invalid-feedback required-msg">Seleccione una categoría</div>
         </div>
         <div class="form-group row">
             <label for="estado-registrar-producto" class="col-sm-2">Estado:</label>
             <select id="estado-registrar-producto" name="estado" class="form-control col-sm-4" required>
                 <option value="Nuevo">Nuevo</option>
-                <option value="SemiNuevo">SemiNuevo</option>
+                <option value="PocoUso">Poco uso</option>
                 <option value="Bueno">Bueno</option>
+                <option value="Decente">Decente</option>
                 <option value="Malo">Malo</option>
-                <option value="Pocho">Pocho</option>
             </select>
             <label for="fecha-registrar-producto" class="col-sm-2">Fecha:</label>
             <input id="fecha-registrar-producto" type="date" name="fecha" class="form-control col-sm-4" required>
-            <div class="invalid-feedback required-msg">Campo requerido</div>
+            <div class="invalid-feedback required-msg">Campo obligatorio</div>
         </div>
         <div class="form-group row">
             <label for="descripcion-registrar-producto" class="col-sm-3">Descripción:</label>
             <textarea id="descripcion-registrar-producto" name="descripcion" rows="2" required
                 class="form-control col-md-10 ml-auto" style="width: 30px;"></textarea>
-            <div class="invalid-feedback required-msg">Campo requerido</div>
+            <div class="invalid-feedback required-msg">Campo obligatorio</div>
         </div>
         <div class="form-group row">
             <label for="imagen-registrar-producto" class="col-sm-2">Imagen:</label>
             <input id="imagen-registrar-producto" type="file" name="imagen" class="form-control-file col-sm-8" required>
-            <div class="invalid-feedback required-msg">Campo requerido</div>
+            <div class="invalid-feedback required-msg">Campo obligatorio</div>
         </div>
         <div class="form-group text-center button-margin">
             <button id="boton-registrar-producto" type="submit" class="btn btn-success">Registrar

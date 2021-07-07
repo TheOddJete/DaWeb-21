@@ -108,7 +108,6 @@ class Controlador {
 
 
         const productos = await ProductoRepositorio.customQuery(queryString);
-        console.log("CONTROLADOR ", productos);
         productos.forEach(p => {
             p.visualizaciones += 1;
             ProductoRepositorio.update(p);
@@ -118,8 +117,6 @@ class Controlador {
     }
 
     static async comprarProducto(idProducto, currentUser) {
-
-        console.log(idProducto);
 
         var producto = await ProductoRepositorio.get(idProducto);
 

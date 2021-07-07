@@ -11,16 +11,11 @@ class Usuario {
     }
 
     comprarProducto(producto, vendedor){
-        console.log('VENDEDOR DENTRO 1: ', vendedor);
         if(this.credito < producto.precio)
             return false;
-
         this.credito -= producto.precio;
         vendedor.credito += parseInt(producto.precio);
         producto.comprador = this.id;
-
-        console.log('VENDEDOR DENTRO: 2', vendedor);
-
         return true;
     }
 

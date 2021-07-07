@@ -9,8 +9,6 @@ class UsuarioRepositorio {
 
   static async getById(id) {
     var res = await pool.query("SELECT * FROM usuarios u WHERE u.id = ? ", [id]);
-    console.log("ELEMENTO SOLO ", res[0]);
-    console.log("ARRAY ", res);
     return res[0];
   }
 
@@ -71,8 +69,6 @@ class ProductoRepositorio {
     try {
       let p = await pool
         .query("SELECT * FROM productos WHERE id = ? ", [id])
-        console.log("ELEMENTO SOLO ", p[0]);
-        console.log("ARRAY ", p);
       return p[0];
     } catch (error) {
       throw error;

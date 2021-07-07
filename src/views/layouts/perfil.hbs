@@ -13,12 +13,13 @@
             <label for="nombre-editar-perfil" class="col-sm-3">Nombre:</label>
             <input id="nombre-editar-perfil" type="text" name="nombre" class="form-control col-sm-9"
                 value="{{{logeado.nombre}}}" maxlength="40" required>
+            <div class="invalid-feedback">Campo obligatorio</div>
         </div>
         <div class="form-group row">
             <label for="apellidos-editar-perfil" class="col-sm-3">Apellidos:</label>
             <input id="apellidos-editar-perfil" type="text" name="apellidos" class="form-control col-sm-9"
                 value="{{{logeado.apellidos}}}" maxlength="40" required>
-            <div class="invalid-feedback">Campos requeridos</div>
+            <div class="invalid-feedback">Campo obligatorio</div>
         </div>
         <div class="form-group row">
             <label for="contrasena-editar-perfil" class="col-sm-3">Contraseña:</label>
@@ -27,32 +28,32 @@
             <label for="recontrasena-editar-perfil" class="col-sm-3">Repetir Contraseña:</label>
             <input id="recontrasena-editar-perfil" type="password" name="recontrasena" class="form-control col-sm-3"
                 maxlength="40" required>
-            <div class="invalid-feedback">Campo requerido</div>
+            <div class="invalid-feedback">Campo obligatorio</div>
         </div>
         <div class="form-group row">
             <label for="email-editar-perfil" class="col-sm-3">Email:</label>
             <input id="email-editar-perfil" type="email" name="email" class="form-control col-sm-9"
                 value="{{{logeado.email}}}" maxlength="40" required>
-            <div class="invalid-feedback">Campo requerido</div>
+            <div class="invalid-feedback">Introduzca un email correcto</div>
         </div>
         <div class="form-group row">
             <label for="credito-editar-perfil" class="col-sm-3">Crédito:</label>
             <input id="credito-editar-perfil" type="number" name="credito" class="form-control col-sm-3"
                 value="{{{logeado.credito}}}" min="0" required>
-            <div class="invalid-feedback">Campos requeridos</div>
+            <div class="invalid-feedback">Introduzca un crédito</div>
         </div>
         <div class="form-group row">
             <label for="provincia-editar-perfil" class="col-sm-3">Provincia:</label>
             <select id="provincia-editar-perfil" name="provincia" class="form-control col-sm-3"
                 value="{{{logeado.provincia}}}" required>
-                <option value="Madrid">Madrid</option>
+                <option value="Alicante">Alicante</option>
                 <option value="Barcelona">Barcelona</option>
                 <option value="Valencia">Valencia</option>
                 <option value="Sevilla">Sevilla</option>
-                <option value="Zaragoza">Zaragoza</option>
+                <option value="Madrid">Madrid</option>
                 <option value="Murcia">Murcia</option>
             </select>
-            <div class="invalid-feedback">Campos requeridos</div>
+            <div class="invalid-feedback">Seleccione una provincia</div>
         </div>
         <div class="form-group text-center button-margin">
             <button id="boton-editar-perfil" type="submit" class="btn btn-success button-size">Editar</button>
