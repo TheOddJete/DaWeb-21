@@ -1,9 +1,9 @@
-<div class="card-margin card col-11 col-sm-10 col-md-9 col-lg-7 mx-auto p-5">
-    <div class="card-title mx-auto titulo-perfil">
+<div class="card-margin card col-11 col-sm-10 col-md-9 col-lg-8 mx-auto p-5">
+    <div class="card-title mx-auto">
         <h2 class="text-center"><i class="fas fa-search fa-sm"> Buscar Productos</i></h2>
     </div>
     <hr>
-    <form id="formulario-buscador" action="/filtrar" method="POST" class="border search-form" novalidate>
+    <form id="formulario-buscador" action="/filtrar" method="POST" class="search-form" novalidate>
         <div class="form-group row mx-auto p-2">
             <input id="texto-buscador" type="text" name="nombre" class="form-control" placeholder="texto"
                 maxlength="40">
@@ -36,17 +36,14 @@
     </form>
 </div>
 
-<div class="container p-5 marco-productos contenedor-scroll">
+<div class="container col-11 col-sm-10 col-md-9 col-lg-8 mx-auto p-9 card-margin border border-padding">
 
     {{#each productos}}
-
-
-    <div class=" row col-sm-11 p-3 mb-2 tarjeta-producto mx-auto ">
+    <div class=" row col-sm-12 p-4 mb-3 mx-auto border border-padding">
         <div class="row col-sm-12">
             <div class="col-sm-4 col-md-3 col-lg-2 mx-auto">
                 <div class="imagen-producto">
-                    <p> <img src="/images/uploads/{{this.imagen}}" alt="imagen del producto"
-                            class=" rounded-circle img-fluid">
+                    <p> <img src="/images/uploads/{{this.imagen}}" alt="imagen del producto" class="img-fluid">
                     </p>
                 </div>
             </div>
@@ -54,7 +51,7 @@
                 <div class="row">
                     <div class="col-sm-10 col-md-8 mr-auto titulo-precio">
                         <h4>{{this.nombre}}</h4>
-                        <p>{{this.descripcion}}</p>
+                        <p class="border border-padding">{{this.descripcion}}</p>
                     </div>
                     <div class="col-md-4 mx-auto ml-sm-auto">
                         <h1 class="precio"> <i class="fa fa-dollar-sign"> {{this.precio}}</i></h1>
@@ -63,7 +60,7 @@
                                     class="fa fa-recycle"></i> cambiar</button>
                         </form>
                         <form id="formulario-compra-{{this.id}}" action="/comprar" method="POST">
-                            <button id="boton-comprar" onclick="alerta()"
+                            <button id="boton-comprar" onclick="return alertaCompra()"
                                 class="btn btn-success btn-block m-1 desabilitable alerta-compra"><i
                                     class="fa fa-dollar-sign"></i> comprar</button>
                         </form>
@@ -87,9 +84,7 @@
             </div>
         </div>
     </div>
-
     <input type="hidden" name="id" value="{{this.id}}" form="formulario-compra-{{this.id}}">
     <input type="hidden" name="id" value="{{this.id}}" form="formulario-cambio-{{this.id}}">
-
     {{/each}}
 </div>

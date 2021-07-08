@@ -25,5 +25,17 @@
   border-radius: 20%;
 }
 
+.border-padding{
+  padding: 10px;
+}
 
+input[type=radio] {
+  width: 25px;
+  height: 25px;
+  margin: 50%; 
+}
+
+.title-padding{
+  padding-bottom: 50px;
+}
 

@@ -1,31 +1,26 @@
 <div class="container ">
     <div class="row">
         <div class="mx-auto pt-5 pb-4 ">
-            <h1 class="text-center">Mis productos</h1>
+            <h2 class="text-center"><i class="fas fa-box fa-sm"> Mis productos</i></h2>
         </div>
     </div>
 </div>
 
 
-<div class="container p-5 marco-productos contenedor-scroll">
-
+<div class="container p-5">
     {{#each productos}}
-
-
-    <div class=" row col-sm-11 p-3 mb-2 tarjeta-producto mx-auto ">
+    <div class=" row col-sm-11 p-3 mb-2 mx-auto border">
         <div class="row col-sm-12">
             <div class="col-sm-4 col-md-3 col-lg-2 mx-auto">
-                <div class="imagen-producto">
-                    <p> <img src="/images/uploads/{{this.imagen}}" alt="imagen del producto"
-                            class=" rounded-circle img-fluid">
-                    </p>
-                </div>
+                <p> <img src="/images/uploads/{{this.imagen}}" alt="imagen del producto"
+                        class="img-fluid">
+                </p>
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    <div class="col-sm-10 col-md-8 mr-auto titulo-precio">
+                    <div class="col-sm-10 col-md-8 mr-auto">
                         <h4>{{this.nombre}}</h4>
-                        <p>{{this.descripcion}}</p>
+                        <p class="border border-padding">{{this.descripcion}}</p>
                     </div>
                     <div class="col-md-4 mx-auto ml-sm-auto">
                         <h1 class="precio"> <i class="fa fa-dollar-sign"> {{this.precio}}</i></h1>
@@ -35,7 +30,7 @@
         </div>
         <div class="row col-sm-12 mx-auto ">
             <div class=" col-sm-8 mr-auto ">
-                <div class="row estado-categoria">
+                <div class="row">
                     <div class=" mx-auto p-2">
                         <p>Estado: {{this.estado}}</p>
                     </div>
