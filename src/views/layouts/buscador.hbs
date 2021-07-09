@@ -3,24 +3,23 @@
         <h2 class="text-center"><i class="fas fa-search fa-sm"> Buscar Productos</i></h2>
     </div>
     <hr>
-    <form id="formulario-buscador" action="/filtrar" method="POST" class="search-form" novalidate>
+    <form action="/filtrar" method="POST" novalidate>
         <div class="form-group row mx-auto p-2">
-            <input id="texto-buscador" type="text" name="nombre" class="form-control" placeholder="texto"
-                maxlength="40">
+            <input id="texto" type="text" name="nombre" class="form-control" placeholder="texto" maxlength="40">
         </div>
         <div class="form-group row mx-auto p-2">
-            <input id="precio_min-buscador" type="number" name="precioMin" min="0"
+            <input id="precio_min" type="number" name="precioMin" min="0"
                 class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto" placeholder="Precio minimo">
-            <input id="precio_max-buscador" type="number" name="precioMax" min="0"
+            <input id="precio_max" type="number" name="precioMax" min="0"
                 class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto" placeholder="Precio maximo">
-            <select id="estado-buscador" name="estado" class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto">
+            <select id="estado" name="estado" class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto">
                 <option value="Nuevo">Nuevo</option>
                 <option value="PocoUso">Poco uso</option>
                 <option value="Bueno">Bueno</option>
                 <option value="Decente">Decente</option>
                 <option value="Malo">Malo</option>
             </select>
-            <select id="categoria-buscador" name="categoria" class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto">
+            <select id="categoria" name="categoria" class="form-control col-sm-6 col-md-5 col-lg-3 mx-auto">
                 <option value="Ropa">Ropa</option>
                 <option value="Tecnologia">Tecnología</option>
                 <option value="Deportes">Deportes</option>
@@ -29,8 +28,7 @@
             </select>
         </div>
         <div class="form-group text-center mx-auto">
-            <button id="boton-buscador" type="submit" class="btn btn-success">Buscar <i
-                    class="fa fa-search pl-2"></i></button>
+            <button type="submit" class="btn btn-success">Buscar <i class="fa fa-search pl-2"></i></button>
         </div>
 
     </form>
@@ -42,26 +40,24 @@
     <div class=" row col-sm-12 p-4 mb-3 mx-auto border border-padding">
         <div class="row col-sm-12">
             <div class="col-sm-4 col-md-3 col-lg-2 mx-auto">
-                <div class="imagen-producto">
-                    <p> <img src="/images/uploads/{{this.imagen}}" alt="imagen del producto" class="img-fluid">
-                    </p>
-                </div>
+                <p> <img src="/images/uploads/{{this.imagen}}" alt="imagen del producto" class="img-fluid">
+                </p>
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    <div class="col-sm-10 col-md-8 mr-auto titulo-precio">
+                    <div class="col-sm-10 col-md-8 mr-auto">
                         <h4>{{this.nombre}}</h4>
                         <p class="border border-padding">{{this.descripcion}}</p>
                     </div>
                     <div class="col-md-4 mx-auto ml-sm-auto">
                         <h1 class="precio"> <i class="fa fa-dollar-sign"> {{this.precio}}</i></h1>
-                        <form id="formulario-cambio-{{this.id}}" action="/cambiar" method="GET">
+                        <form id="cambio-{{this.id}}" action="/cambiar" method="GET">
                             <button id="boton-cambiar" class="btn btn-success btn-block m-1 desabilitable"><i
                                     class="fa fa-recycle"></i> cambiar</button>
                         </form>
-                        <form id="formulario-compra-{{this.id}}" action="/comprar" method="POST">
+                        <form id="compra-{{this.id}}" action="/comprar" method="POST">
                             <button id="boton-comprar" onclick="return alertaCompra()"
-                                class="btn btn-success btn-block m-1 desabilitable alerta-compra"><i
+                                class="btn btn-success btn-block m-1 desabilitable"><i
                                     class="fa fa-dollar-sign"></i> comprar</button>
                         </form>
                     </div>
@@ -70,7 +66,7 @@
         </div>
         <div class="row col-sm-12 mx-auto ">
             <div class=" col-sm-8 mr-auto ">
-                <div class="row estado-categoria">
+                <div class="row">
                     <div class=" mx-auto p-2">
                         <p>Estado: {{this.estado}}</p>
                     </div>
@@ -84,7 +80,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" name="id" value="{{this.id}}" form="formulario-compra-{{this.id}}">
-    <input type="hidden" name="id" value="{{this.id}}" form="formulario-cambio-{{this.id}}">
+    <input type="hidden" name="id" value="{{this.id}}" form="compra-{{this.id}}">
+    <input type="hidden" name="id" value="{{this.id}}" form="cambio-{{this.id}}">
     {{/each}}
 </div>

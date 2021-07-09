@@ -19,7 +19,7 @@
 }
 
 .button-size{
-  width: 25%;
+  width: 40%;
 }
 .buscador{
   border-radius: 20%;
@@ -27,6 +27,10 @@
 
 .border-padding{
   padding: 10px;
+}
+
+.mensaje {
+  text-align: right;
 }
 
 input[type=radio] {

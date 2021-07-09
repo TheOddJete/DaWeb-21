@@ -13,7 +13,7 @@ router.get('/cambiar', async (req, res) => {
 });
 router.post('/cambiar', async (req, res) => {
     const { productId, product_change } = req.body;
-    const resultado = await Controlador.changeProducts(productId, product_change);
+    const resultado = await Controlador.cambiarProducto(productId, product_change);
     if(resultado){
         req.flash('correcto', 'Producto cambiado correctamente');
         res.redirect('/buscar');

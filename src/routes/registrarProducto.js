@@ -6,7 +6,13 @@ const { ProductoRepositorio } = require('../persistencia/repository');
 
 router.get('/registrarProducto', async (req, res) => {
     const logeado = await Controlador.getCurrentUser();
-    res.render('layouts/registrarProducto',{logeado});
+    if (logeado !== undefined){
+        res.render('layouts/registrarProducto',{logeado});
+    }
+    else{
+        req.flash('fallo', 'Deber iniciar la sesión');
+        res.redirect('/');
+    }
 });
 
 router.post('/registrarProducto', async (req, res) => {

@@ -5,39 +5,43 @@
         <div class="form-group row">
             <label for="nombre" class="col-sm-3">Nombre:</label>
             <input id="nombre" type="text" name="nombre" class="form-control col-sm-9" maxlength="40" required>
-            <div class="invalid-feedback required-msg">Campo requerido</div>
+            <div class="invalid-feedback mensaje">Campos requeridos</div>
         </div>
         <div class="form-group row">
             <label for="apellidos" class="col-sm-3">Apellidos:</label>
             <input id="apellidos" type="text" name="apellidos" class="form-control col-sm-9" maxlength="40" required>
-            <div class="invalid-feedback required-msg">Campo requerido</div>
+            <div class="invalid-feedback mensaje">Campos requeridos</div>
         </div>
         <div class="form-group row">
             <label for="usuario" class="col-sm-3">Usuario:</label>
             <input id="usuario" type="text" name="usuario" class="form-control col-sm-9" maxlength="40" required>
-            <div class="invalid-feedback required-msg">Campo requerido</div>
+            <div class="invalid-feedback mensaje">Campos requeridos</div>
         </div>
         <div class="form-group row">
             <label for="contrasena" class="col-sm-3">Contraseña:</label>
             <input id="contrasena" type="password" name="contrasena" class="form-control col-sm-3" maxlength="40"
                 required>
+            <div class="invalid-feedback mensaje">Campos requeridos</div>
 
             <label for="recontrasena" class="col-sm-3">Contraseña:</label>
             <input id="recontrasena" type="password" name="recontrasena" class="form-control col-sm-3" maxlength="40"
                 required>
-            <div class="invalid-feedback">Campos requeridos</div>
+            <div class="invalid-feedback mensaje">Campos requeridos</div>
         </div>
         <div class="form-group row">
             <label for="email" class="col-sm-3">Email:</label>
             <input id="email" type="email" name="email" class="form-control col-sm-9" maxlength="40" required>
-            <div class="invalid-feedback">Campo requerido</div>
+            <div class="invalid-feedback mensaje">Campos requeridos</div>
         </div>
         <div class="form-group row">
             <label for="credito" class="col-sm-3">Créditos:</label>
             <input id="credito" type="number" name="credito" class="form-control col-sm-3" min="0" required>
-             <label for="provncia" class="col-sm-3">Provincia:</label>
-            <select id="provincia" name="provincia" class="form-control col-sm-3" placeholder="Provincia"
-                required>
+            <div class="invalid-feedback mensaje">Campos requeridos</div>
+
+            <label for="provncia" class="col-sm-3">Provincia:</label>
+            <div class="invalid-feedback mensaje">Campos requeridos</div>
+
+            <select id="provincia" name="provincia" class="form-control col-sm-3" placeholder="Provincia" required>
                 <option value="Alicante">Alicante</option>
                 <option value="Barcelona">Barcelona</option>
                 <option value="Valencia">Valencia</option>
@@ -45,11 +49,11 @@
                 <option value="Madrid">Madrid</option>
                 <option value="Murcia">Murcia</option>
             </select>
-            <div class="invalid-feedback">Campos requeridos</div>
+            <div class="invalid-feedback mensaje">Campos requeridos</div>
         </div>
         <div class="form-group text-center button-margin">
             <button type="submit" class="btn btn-success button-size">Registrarse</button>
         </div>
     </form>
-    <a href="/login" class=" btn mx-auto btn-reg">Ya tengo una cuenta</a>
+    <a href="/login" class="btn mx-auto">Ya tengo una cuenta</a>
 </div>

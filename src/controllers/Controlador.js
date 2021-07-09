@@ -72,7 +72,7 @@ class Controlador {
         return productos;
     }
 
-    static async customSearch(nombre, estado, precioMin, precioMax, categoria) {
+    static async buscarConFiltro(nombre, estado, precioMin, precioMax, categoria) {
 
         var currentId = Controlador.getCurrentUser().id;
         if (nombre === '' && estado === '' && precioMin === '' && precioMax === '' && categoria === '') {
@@ -107,7 +107,7 @@ class Controlador {
         queryString += " comprador is NULL AND cambiado_por is NULL)";
 
 
-        const productos = await ProductoRepositorio.customQuery(queryString);
+        const productos = await ProductoRepositorio.queryPersonalizado(queryString);
         productos.forEach(p => {
             p.visualizaciones += 1;
             ProductoRepositorio.update(p);
@@ -119,10 +119,7 @@ class Controlador {
     static async comprarProducto(idProducto, currentUser) {
 
         var producto = await ProductoRepositorio.get(idProducto);
-
         var vendedor = await UsuarioRepositorio.getById(producto.usuario);
-        //var ok = currentUser.comprarProducto(producto, vendedor);
-
         if (currentUser.credito < producto.precio)
             return false;
 
@@ -137,7 +134,7 @@ class Controlador {
         return true;
     }
 
-    static async changeProducts(productoId, miProductoId) {
+    static async cambiarProducto(productoId, miProductoId) {
 
         var total_price = 0;
         const miProducto = await ProductoRepositorio.get(miProductoId);
@@ -146,12 +143,6 @@ class Controlador {
         //Tratar fallo
         if (miProducto.precio < producto.precio) {
             return false;
-            return {
-                alerta: {
-                    tipo: 'alert-danger',
-                    msg: 'El valor total de los productos seleccionados no puede superar el valor del producto a cambiar.'
-                }
-            }
         }
         else {
             producto.cambiado_por = Controlador.getCurrentUser().id;
@@ -161,12 +152,6 @@ class Controlador {
             await ProductoRepositorio.update(miProducto);
 
             return true;
-            return {
-                alerta: {
-                    tipo: 'alert-success',
-                    msg: 'Producto/s cambiado/s correctamente.'
-                }
-            }
         }
 
     }

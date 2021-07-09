@@ -146,20 +146,10 @@ class ProductoRepositorio {
     }
   }
 
-  static async customQuery(queryString) {
+  static async queryPersonalizado(queryString) {
     try {
       const products = await pool.query(queryString);
       return products;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  static async getBoughtProducts(compradorId) {
-    try {
-      const products = await pool.promise()
-        .query("SELECT * FROM products WHERE comprador = ? OR cambiado_por = ?", [compradorId, compradorId]);
-      return products[0];
     } catch (error) {
       throw error;
     }
