@@ -1,6 +1,7 @@
 # DaWeb-21
 Proyecto de prácticas para la asignatura Desarrollo de aplicaciones web convocatoria de Julio 2021
-Francisco Antonio Fernández Coloma y DongYue Yu.
+
+Autores: Francisco Antonio Fernández Coloma y DongYue Yu.
 
 Es necesario utilizar el siguiente comando para instalar las dependencias necesarias para la aplicación:
 
