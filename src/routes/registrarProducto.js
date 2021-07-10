@@ -5,11 +5,11 @@ const { ProductoRepositorio } = require('../persistencia/repository');
 
 
 router.get('/registrarProducto', async (req, res) => {
-    const logeado = await Controlador.getCurrentUser();
-    if (logeado !== undefined){
-        res.render('layouts/registrarProducto',{logeado});
+    const logeado = await Controlador.getUsuarioActual();
+    if (logeado !== undefined) {
+        res.render('layouts/registrarProducto', { logeado });
     }
-    else{
+    else {
         req.flash('fallo', 'Debe iniciar sesión');
         res.redirect('/');
     }
@@ -18,8 +18,10 @@ router.get('/registrarProducto', async (req, res) => {
 router.post('/registrarProducto', async (req, res) => {
     const { nombre, descripcion, precio, categoria, estado, fecha } = req.body;
     const { filename } = req.file;
-    await Controlador.createProduct(nombre, precio, descripcion, filename, fecha, categoria, estado);
-    res.redirect('/');
+    await Controlador.crearProducto(nombre, precio, descripcion, filename, fecha, categoria, estado);
+    req.flash('correcto', 'Producto registrado correctamente');
+    res.redirect('/misProductos');
+
 });
 
 module.exports = router;

@@ -2,11 +2,11 @@ const Usuario = require('../models/Usuario');
 const { UsuarioRepositorio, ProductoRepositorio } = require('../persistencia/repository');
 const Producto = require('../models/Producto');
 
-var currentUser = undefined;
+var usuarioActual = undefined;
 
 class Controlador {
 
-    static async createUsuario(nombre, apellidos, usuario, contrasena, email, credito, provincia) {
+    static async crearUsuario(nombre, apellidos, usuario, contrasena, email, credito, provincia) {
         var res = await UsuarioRepositorio.get(usuario);
         if (res !== undefined)
             return false
@@ -18,53 +18,53 @@ class Controlador {
     static async login(usuario, contrasena) {
         var aux = await UsuarioRepositorio.login(usuario, contrasena);
         if (aux === undefined) return undefined;
-        currentUser = new Usuario(aux.nombre, aux.apellidos, aux.usuario, aux.contrasena, aux.email, aux.credito, aux.provincia);
-        currentUser.id = aux.id;
-        return currentUser;
+        usuarioActual = new Usuario(aux.nombre, aux.apellidos, aux.usuario, aux.contrasena, aux.email, aux.credito, aux.provincia);
+        usuarioActual.id = aux.id;
+        return usuarioActual;
     }
 
-    static getCurrentUser() {
-        return currentUser;
+    static getUsuarioActual() {
+        return usuarioActual;
     }
 
     static async updateUsuario(nombre, apellidos, contrasena, email, credito, provincia) {
-        currentUser.nombre = nombre;
-        currentUser.apellidos = apellidos;
-        currentUser.contrasena = contrasena;
-        currentUser.email = email;
-        currentUser.credito = credito;
-        currentUser.provincia = provincia;
+        usuarioActual.nombre = nombre;
+        usuarioActual.apellidos = apellidos;
+        usuarioActual.contrasena = contrasena;
+        usuarioActual.email = email;
+        usuarioActual.credito = credito;
+        usuarioActual.provincia = provincia;
 
-        await UsuarioRepositorio.update(currentUser);
-        return currentUser;
+        await UsuarioRepositorio.update(usuarioActual);
+        return usuarioActual;
     }
 
     static logout() {
-        currentUser = undefined;
+        usuarioActual = undefined;
     }
 
     //Productos
-    static async createProduct(nombre, precio, descripcion, imagen, fecha, categoria, estado) {
-        var currentId = Controlador.getCurrentUser().id;
+    static async crearProducto(nombre, precio, descripcion, imagen, fecha, categoria, estado) {
+        var currentId = Controlador.getUsuarioActual().id;
         var visualizaciones = 0;
         var producto = new Producto(nombre, precio, descripcion, imagen, fecha, categoria, estado, visualizaciones, currentId);
         await ProductoRepositorio.add(producto);
     }
 
-    static async getProductById(id) {
+    static async getProductoById(id) {
         const producto = await ProductoRepositorio.get(id);
         return producto;
     }
 
-    static async searchCurrentUserProducts() {
-        var currentId = Controlador.getCurrentUser().id;
+    static async buscarProductosUsuarioActual() {
+        var currentId = Controlador.getUsuarioActual().id;
         var productos = await ProductoRepositorio.getByusuario(currentId);
         return productos;
     }
 
-    static async searchProducts() {
-        var currentId = Controlador.getCurrentUser().id;
-        var productos = await ProductoRepositorio.getAllNoMine(currentId);
+    static async buscarProductos() {
+        var currentId = Controlador.getUsuarioActual().id;
+        var productos = await ProductoRepositorio.getAllSinMisProductos(currentId);
         productos.forEach(p => {
             p.visualizaciones += 1;
             ProductoRepositorio.update(p);
@@ -74,9 +74,9 @@ class Controlador {
 
     static async buscarConFiltro(nombre, estado, precioMin, precioMax, categoria) {
 
-        var currentId = Controlador.getCurrentUser().id;
+        var currentId = Controlador.getUsuarioActual().id;
         if (nombre === '' && estado === '' && precioMin === '' && precioMax === '' && categoria === '') {
-            const productos = await Controlador.searchProducts();
+            const productos = await Controlador.buscarProductos();
             return productos;
         }
 
@@ -107,7 +107,7 @@ class Controlador {
         queryString += " comprador is NULL AND cambiado_por is NULL)";
 
 
-        const productos = await ProductoRepositorio.queryPersonalizado(queryString);
+        const productos = await ProductoRepositorio.buscarConFiltros(queryString);
         productos.forEach(p => {
             p.visualizaciones += 1;
             ProductoRepositorio.update(p);
@@ -116,18 +116,18 @@ class Controlador {
 
     }
 
-    static async comprarProducto(idProducto, currentUser) {
+    static async comprarProducto(idProducto, usuarioActual) {
 
         var producto = await ProductoRepositorio.get(idProducto);
         var vendedor = await UsuarioRepositorio.getById(producto.usuario);
-        if (currentUser.credito < producto.precio)
+        if (usuarioActual.credito < producto.precio)
             return false;
 
-        currentUser.credito -= producto.precio;
+        usuarioActual.credito -= producto.precio;
         vendedor.credito += parseInt(producto.precio);
-        producto.comprador = currentUser.id;
+        producto.comprador = usuarioActual.id;
 
-        await UsuarioRepositorio.update(currentUser);
+        await UsuarioRepositorio.update(usuarioActual);
         await UsuarioRepositorio.update(vendedor);
         await ProductoRepositorio.update(producto);
 
@@ -135,8 +135,6 @@ class Controlador {
     }
 
     static async cambiarProducto(productoId, miProductoId) {
-
-        var total_price = 0;
         const miProducto = await ProductoRepositorio.get(miProductoId);
         const producto = await ProductoRepositorio.get(productoId);
 
@@ -145,7 +143,7 @@ class Controlador {
             return false;
         }
         else {
-            producto.cambiado_por = Controlador.getCurrentUser().id;
+            producto.cambiado_por = Controlador.getUsuarioActual().id;
             await ProductoRepositorio.update(producto);
 
             miProducto.cambiado_por = producto.usuario;
@@ -154,6 +152,10 @@ class Controlador {
             return true;
         }
 
+    }
+
+    static async borrarProducto(idProducto) {
+        await ProductoRepositorio.delete(idProducto);
     }
 }
 

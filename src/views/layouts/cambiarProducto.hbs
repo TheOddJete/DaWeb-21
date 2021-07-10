@@ -1,79 +1,81 @@
-<div class="container card-margin">
-    <div class="row title-padding">
-        <h2 class="text-center mx-auto"><i class="fas fa-recycle fa-sm"> Cambio de Producto</i></h2>
-    </div>
+<div class="container">
+    <div class="container card-margin">
+        <div class="row title-padding">
+            <h2 class="text-center mx-auto"><i class="fas fa-recycle fa-sm"> Cambio de Producto</i></h2>
+        </div>
 
-    <div class=" row col-sm-10 p-3 mb-2 mx-auto border">
-        <div class="row col-sm-12">
-            <div class="col-sm-4 col-md-3 col-lg-2 mx-auto">
-                    <p> <img src="/images/uploads/{{producto.imagen}}" alt="imagen del producto" class="img-fluid">
+        <div class=" row col-sm-10 p-3 mb-2 mx-auto border">
+            <div class="row col-sm-12">
+                <div class="col-sm-4 col-md-3 col-lg-2 mx-auto">
+                    <p> <img src="/imagenes/{{producto.imagen}}" alt="imagen del producto" class="img-fluid">
                     </p>
-            </div>
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-sm-8 mr-auto">
-                        <h4>{{producto.nombre}}</h4>
-                        <p class="border border-padding">{{producto.descripcion}}</p>
-                    </div>
-                    <div class="col-sm-3 ml-auto">
-                        <h3 class="precio"> <i class="fa fa-dollar-sign"> {{producto.precio}}</i></h3>
-                        <h3 class=""></h3>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-sm-8 mr-auto">
+                            <h4>{{producto.nombre}}</h4>
+                            <p class="border border-padding">{{producto.descripcion}}</p>
+                        </div>
+                        <div class="col-sm-3 ml-auto">
+                            <h3 class="precio"> <i class="fa fa-dollar-sign"> {{producto.precio}}</i></h3>
+                            <h3 class=""></h3>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row col-sm-12 mx-auto ">
-            <div class=" col-sm-8 mr-auto ">
-                <div class="row">
-                    <div class=" mx-auto p-2">
-                        <p>Estado: {{producto.estado}}</p>
-                    </div>
-                    <div class=" mx-auto p-2">
-                        <p> Categoria: {{producto.categoria}}</p>
+            <div class="row col-sm-12 mx-auto ">
+                <div class=" col-sm-8 mr-auto ">
+                    <div class="row">
+                        <div class=" mx-auto p-2">
+                            <p>Estado: {{producto.estado}}</p>
+                        </div>
+                        <div class=" mx-auto p-2">
+                            <p> Categoria: {{producto.categoria}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="container card-margin">
-    <div class="row">
-        <h2 class="mx-auto text-center title-padding"> Mis productos </h2>
-    </div>
-    <div class="p-1">
-        <div class="row ">
-            {{#each productos}}
-            <div class="col-sm-6">
-                <div class="card mb-1">
-                    <div class="row border-padding">
-                        <div class="col-sm-1 mx-auto">
-                            <input type="radio" name="product_change" value="{{this.id}}" form="form-cambio">
-                        </div>
-                        <div class="col-sm-4 ">
-                            <p> <img src="/images/uploads/{{this.imagen}}" alt="imagen del producto"
-                                    class="m-1 img-fluid">
-                            </p>
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="card-body">
-                                <h4 class="card-title">{{this.nombre}}</h4>
-                                <p class="card-text"><i class="fa fa-dollar-sign"> {{this.precio}}</i></p>
+    <div class="container card-margin">
+        <div class="row">
+            <h2 class="mx-auto text-center title-padding"> Mis productos </h2>
+        </div>
+        <div class="p-1">
+            <div class="row ">
+                {{#each productos}}
+                <div class="col-sm-6">
+                    <div class="card mb-1">
+                        <div class="row border-padding">
+                            <div class="col-sm-1 mx-auto">
+                                <input type="radio" name="product_change" value="{{this.id}}" form="form-cambio">
+                            </div>
+                            <div class="col-sm-4 ">
+                                <p> <img src="/imagenes/{{this.imagen}}" alt="imagen del producto"
+                                        class="m-1 img-fluid">
+                                </p>
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{this.nombre}}</h4>
+                                    <p class="card-text"><i class="fa fa-dollar-sign"> {{this.precio}}</i></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{/each}}
             </div>
-            {{/each}}
         </div>
-    </div>
-    <div class="row">
-        <form id="form-cambio" action="/cambiar" method="POST" class="mt-2 mx-auto mb-5"
-            onsubmit="return alertaCambio()" novalidate>
-            <input type="hidden" name="productId" value="{{producto.id}}">
-            <a href="/buscar" class="btn btn-light mr-5">Cancelar</a>
-            <button type="submit" class="btn btn-success">Aceptar</button>
-        </form>
-    </div>
+        <div class="row">
+            <form action="/cambiar" method="POST" class="mt-2 mx-auto mb-5"
+                onsubmit="return alertaCambio()" novalidate>
+                <input type="hidden" name="productId" value="{{producto.id}}">
+                <a href="/buscar" class="btn btn-light mr-5">Cancelar</a>
+                <button type="submit" class="btn btn-success">Aceptar</button>
+            </form>
+        </div>
 
+    </div>
 </div>

@@ -5,9 +5,9 @@ const Controlador = require('../controllers/Controlador')
 router.get('/cambiar', async (req, res) => {
     const { id } = req.query;
 
-    const logeado = Controlador.getCurrentUser();
-    const producto = await Controlador.getProductById(id);
-    const productos = await Controlador.searchCurrentUserProducts();
+    const logeado = Controlador.getUsuarioActual();
+    const producto = await Controlador.getProductoById(id);
+    const productos = await Controlador.buscarProductosUsuarioActual();
 
     res.render('layouts/cambiarProducto', { producto, productos, logeado });
 });

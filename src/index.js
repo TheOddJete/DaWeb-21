@@ -6,15 +6,7 @@ const multer = require('multer');
 const uuid = require('uuid');
 const session = require('express-session');
 const flash = require('connect-flash');
-const mysqlstore = require('express-mysql-session');
 
-const database = {
-        host: 'localhost',
-        port: '3306',
-        user: 'root',
-        password: 'root',
-        database: 'daweb'
-}
 
 // Inicializaciones
 const app = express();
@@ -30,7 +22,7 @@ app.engine('.hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, 'public/images/uploads'),
+    destination: path.join(__dirname, 'public/imagenes'),
     filename: (req, file, cb) => {
         cb(null, uuid.v4() + path.extname(file.originalname).toLowerCase());
     }
@@ -46,7 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(multer({
     storage: storage,
-    dest: path.join(__dirname, 'public/imagenes/uploads'),
+    dest: path.join(__dirname, 'public/imagenes'),
     fileFilter: (req, file, cb) => {
         const filetypes = /jpeg|jpg|png/;
         const mimetype = filetypes.test(file.mimetype);

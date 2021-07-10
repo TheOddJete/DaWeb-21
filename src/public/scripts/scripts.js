@@ -6,6 +6,10 @@ function alertaCambio() {
   return confirm("¿Está seguro que desea realizar este cambio?");
 }
 
+function alertaBorrar() {
+  return confirm("¿Está seguro que desea borrar este producto?");
+}
+
 //Script de BOOTSTRAP para validar los formularios.
 (function () {
   'use strict';

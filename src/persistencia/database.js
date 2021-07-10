@@ -29,6 +29,6 @@ pool.query(
 pool.query("CREATE TABLE productos ( id INT NOT NULL AUTO_INCREMENT, nombre VARCHAR(45) NOT NULL, precio DOUBLE NOT NULL, descripcion VARCHAR(100) NOT NULL, imagen VARCHAR(100) NOT NULL, fecha DATE NOT NULL, categoria ENUM('Ropa', 'Tecnologia', 'Deportes', 'Juegos', 'Otros') NOT NULL, estado ENUM('Nuevo', 'PocoUso', 'Bueno', 'Decente', 'Malo') NOT NULL, visualizaciones INT NOT NULL, usuario INT NOT NULL, comprador INT NULL DEFAULT NULL, cambiado_por INT NULL DEFAULT NULL, PRIMARY KEY (id), INDEX cambiado_por_idx (usuario ASC) VISIBLE, INDEX comprador_idx (comprador ASC) VISIBLE, CONSTRAINT usuario FOREIGN KEY (usuario) REFERENCES usuarios (id) ON DELETE NO ACTION ON UPDATE NO ACTION, CONSTRAINT comprador FOREIGN KEY (comprador) REFERENCES usuarios (id) ON DELETE NO ACTION ON UPDATE NO ACTION);", (err, res) => {});
 
 
-pool.query("ALTER TABLE productos ADD CONSTRAINT cambiado_por FOREIGN KEY (cambiado_por) REFERENCES productos (id) ON DELETE NO ACTION ON UPDATE NO ACTION;", (err, res) => {});
+pool.query("ALTER TABLE productos ADD CONSTRAINT cambiado_por FOREIGN KEY (cambiado_por) REFERENCES productos (id) ON DELETE CASCADE ON UPDATE NO ACTION;", (err, res) => {});
 
 module.exports = pool;

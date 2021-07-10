@@ -3,7 +3,7 @@ const pool = require("./database");
 class UsuarioRepositorio {
 
   static async get(usuario) {
-    var res = await pool.query("SELECT * FROM usuarios u WHERE u.usuario = ? ", usuario);
+    var res = await pool.query("SELECT * FROM usuarios u WHERE u.usuario = ? ", [usuario]);
     return res[0];
   }
 
@@ -41,15 +41,6 @@ class UsuarioRepositorio {
           usuario.usuario,
         ]
       );
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  static async delete(usuario) {
-    try {
-      await pool.promise()
-        .query("DELETE FROM usuarios u WHERE u.usuario = ?", usuario);
     } catch (error) {
       throw error;
     }
@@ -116,17 +107,15 @@ class ProductoRepositorio {
     }
   }
 
-  static async delete(nombre) {
+  static async delete(id) {
     try {
-      await pool
-        .promise()
-        .query("DELETE FROM products p WHERE p.nombre = ?", nombre);
+      await pool.query("DELETE FROM productos WHERE id = ? ", [id]);
     } catch (error) {
       throw error;
     }
   }
 
-  static async getAllNoMine(usuarioId) {
+  static async getAllSinMisProductos(usuarioId) {
     try {
       const productos = await pool
       .query("SELECT * FROM productos WHERE usuario != ? AND comprador is NULL AND cambiado_por is NULL", [usuarioId]);
@@ -146,7 +135,7 @@ class ProductoRepositorio {
     }
   }
 
-  static async queryPersonalizado(queryString) {
+  static async buscarConFiltros(queryString) {
     try {
       const products = await pool.query(queryString);
       return products;

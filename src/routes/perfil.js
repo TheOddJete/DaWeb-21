@@ -3,7 +3,7 @@ const router = express.Router();
 const Controlador = require('../controllers/Controlador')
 
 router.get('/perfil', async (req, res) => {
-    const logeado = await Controlador.getCurrentUser();
+    const logeado = await Controlador.getUsuarioActual();
     if (logeado !== undefined){
         res.render('layouts/perfil',{logeado});
     }

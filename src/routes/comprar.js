@@ -4,7 +4,7 @@ const Controlador = require('../controllers/Controlador')
 
 router.post('/comprar', async (req, res) => {
     const { id } = req.body;
-    const logeado = Controlador.getCurrentUser();
+    const logeado = Controlador.getUsuarioActual();
     var productoComprado = await Controlador.comprarProducto(id, logeado);
     if(productoComprado){
         req.flash('correcto', 'Producto comprado correctamente');
