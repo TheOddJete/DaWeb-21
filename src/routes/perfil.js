@@ -4,7 +4,14 @@ const Controlador = require('../controllers/Controlador')
 
 router.get('/perfil', async (req, res) => {
     const logeado = await Controlador.getCurrentUser();
-    res.render('layouts/perfil',{logeado});
+    if (logeado !== undefined){
+        res.render('layouts/perfil',{logeado});
+    }
+    else{
+        req.flash('fallo', 'Debe iniciar sesión');
+        res.redirect('/');
+    }
+    
 });
 
 router.post('/perfil', async (req, res) => {

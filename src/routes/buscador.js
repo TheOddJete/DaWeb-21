@@ -9,7 +9,7 @@ router.get('/buscar', async (req, res) => {
         res.render('layouts/buscador', { logeado, productos });
     }
     else {
-        req.flash('fallo', 'Deber iniciar la sesión');
+        req.flash('fallo', 'Debe iniciar sesión');
         res.redirect('/');
     }
 });

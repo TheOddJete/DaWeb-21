@@ -9,7 +9,7 @@ router.get('/misProductos', async (req, res) => {
         res.render('layouts/misProductos', { logeado, productos });
     }
     else {
-        req.flash('fallo', 'Deber iniciar la sesión');
+        req.flash('fallo', 'Debe iniciar sesión');
         res.redirect('/');
     }
 });

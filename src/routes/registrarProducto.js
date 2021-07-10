@@ -10,7 +10,7 @@ router.get('/registrarProducto', async (req, res) => {
         res.render('layouts/registrarProducto',{logeado});
     }
     else{
-        req.flash('fallo', 'Deber iniciar la sesión');
+        req.flash('fallo', 'Debe iniciar sesión');
         res.redirect('/');
     }
 });
